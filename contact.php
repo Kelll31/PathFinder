@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
+<?php
+include 'main_script.php';
+?>
 
 <head>
-	<title>PathFinder | Связаться с нами</title>
+	<title>PathFinder | Создать проект</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -66,7 +69,7 @@
 					<li class="nav-item"><a href="index.php" class="nav-link">Главная</a></li>
 					<li class="nav-item"><a href="shop.php" class="nav-link">Все проекты </a></li>
 					<li class="nav-item"><a href="cart.php" class="nav-link">Мои проекты</a></li>
-					<li class="nav-item active"><a href="contact.php" class="nav-link">Связаться с нами</a></li>
+					<li class="nav-item active"><a href="contact.php" class="nav-link">Создать проект</a></li>
 					<li class="nav-item"><a href="team.php" class="nav-link">Мои 11</a></li>
 					<li class="nav-item"><a href="user.php" class="nav-link">Профиль</a></li>
 				</ul>
@@ -82,9 +85,9 @@
 			<div class="row no-gutters slider-text align-items-end">
 				<div class="col-md-9 ftco-animate pb-5">
 					<p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.php">Главная <i
-									class="ion-ios-arrow-forward"></i></a></span> <span>Связаться с нами <i
+									class="ion-ios-arrow-forward"></i></a></span> <span>Создать проект <i
 								class="ion-ios-arrow-forward"></i></span></p>
-					<h1 class="mb-0 bread">Связаться с нами</h1>
+					<h1 class="mb-0 bread">Создать проект</h1>
 				</div>
 			</div>
 		</div>
@@ -98,49 +101,121 @@
 						<div class="row no-gutters mb-5">
 							<div class="col-md-7">
 								<div class="contact-wrap w-100 p-md-5 p-4">
-									<h3 class="mb-4">Связаться с нами</h3>
+									<h3 class="mb-4">Создать проект</h3>
 									<div id="form-message-warning" class="mb-4"></div>
 									<div id="form-message-success" class="mb-4">
 										Ваше сообщение отправленно!
 									</div>
+
+
+
+
 									<form method="POST" id="contactForm" name="contactForm" class="contactForm">
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="label" for="name">Имя</label>
-													<input type="text" class="form-control" name="name" id="Name"
-														placeholder="Имя">
+													<label class="label" for="nameee">Название</label>
+													<input type="text" class="form-control" name="nameee"
+														placeholder="Название">
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="label" for="email">Email</label>
-													<input type="email" class="form-control" name="email" id="email"
-														placeholder="Email">
+													<label class="label" for="email">Ссылка на изображение</label>
+													<input type="text" class="form-control" name="image"
+														placeholder="Ссылка на изображение">
 												</div>
 											</div>
 											<div class="col-md-12">
 												<div class="form-group">
-													<label class="label" for="subject">Категория</label>
-													<input type="text" class="form-control" name="subject" id="subject"
-														placeholder="Категория">
+													<label class="label" for="subject">Категория проекта</label>
+													<div class="tagcloud categories">
+														<?php
+														if (isset($_GET['category'])) {
+															$category = $_GET['category'];
+															for ($i = 0; $i <= 10; $i++) {
+																$result = mysqli_query($link, "SELECT `category_name` FROM `categories` WHERE `category_id` ='$i'");
+																while ($data = $result->fetch_assoc()) {
+																	$category_name = $data['category_name'];
+																	if ($_GET['category'] == $i) {
+																		echo '<li class="active"><a href="?category=' . $i . '"class="tag-cloud-link">' . $category_name . '</a></li>';
+																	} else {
+																		echo '<li><a href="?category=' . $i . '"class="tag-cloud-link">' . $category_name . '</a></li>';
+																	}
+																}
+
+
+															}
+														} else {
+															echo '<script> window.location.href = "contact.php?category=0"; </script>';
+														}
+														?>
+													</div>
+
 												</div>
 											</div>
 											<div class="col-md-12">
 												<div class="form-group">
-													<label class="label" for="#">Сообщение</label>
-													<textarea name="message" class="form-control" id="message" cols="30"
-														rows="4" placeholder="Сообщение"></textarea>
+													<label class="label" for="#">Описание проекта</label>
+													<textarea name="product_widetext" class="form-control" cols="30"
+														rows="4" placeholder="Описание проекта"></textarea>
 												</div>
 											</div>
 											<div class="col-md-12">
 												<div class="form-group">
-													<input type="submit" value="Отправить" class="btn btn-primary">
+													<input type="submit" value="Создать проект!" class="btn btn-primary"
+														name="submitt">
 													<div class="submitting"></div>
 												</div>
 											</div>
 										</div>
 									</form>
+									<?php
+
+									$result = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` = '$hashh'");
+									while ($row = $result->fetch_assoc()) {
+										$userid = $row['user_id'];
+									}
+									if (isset($_POST['submitt'])) {
+										if (empty($_POST['nameee']) == false) {
+											$name = $_POST['nameee'];
+											if (empty($_POST['image']) == false) {
+												$image = $_POST['image'];
+												if (empty($_GET['category']) == false) {
+													$category = $_GET['category'];
+													if (empty($_POST['product_widetext']) == false) {
+														$product_widetext = $_POST['product_widetext'];
+														mysqli_query($link, "INSERT INTO `products`( `product_class`, `product_name`, `product_widetext`, `product_image`,`user_id`) VALUES ('$category','$name','$product_widetext','$image','$userid')");
+														unset($_POST['submitt']);
+
+														$result = mysqli_query($link, "SELECT MAX(`id`) FROM `products` WHERE 1");
+														while ($row = $result->fetch_assoc()) {
+															$maxid = $row['MAX(`id`)'];
+														}
+														echo '<script> window.location.href = "productinfo.php?id=' . $maxid . '"; </script>';
+
+													} else {
+														$product_widetext = 97655312376244;
+													}
+												} else {
+													$category = 97655312376244;
+												}
+
+											} else {
+												$image = 97655312376244;
+											}
+										} else {
+											$name = 81237621378123;
+										}
+
+
+
+									}
+									?>
+
+
+
+
 								</div>
 							</div>
 							<div class="col-md-13 d-flex align-items-stretch">
@@ -222,7 +297,7 @@
 							<div class="row justify-content-center">
 								<div class="col-md-12 col-lg-10">
 									<div class="row">
-										
+
 										<div class="col-md-4 mb-md-0 mb-4">
 											<h2 class="footer-heading">Меню</h2>
 											<ul class="list-unstyled">

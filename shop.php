@@ -70,7 +70,7 @@ include 'main_script.php';
 					<li class="nav-item"><a href="index.php" class="nav-link">Главная</a></li>
 					<li class="nav-item active"><a href="shop.php" class="nav-link">Все проекты </a></li>
 					<li class="nav-item"><a href="cart.php" class="nav-link">Мои проекты</a></li>
-					<li class="nav-item"><a href="contact.php" class="nav-link">Связаться с нами</a></li>
+					<li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>
 					<li class="nav-item"><a href="team.php" class="nav-link">Мои 11</a></li>
 					<li class="nav-item"><a href="user.php" class="nav-link">Профиль</a></li>
 				</ul>
@@ -86,7 +86,7 @@ include 'main_script.php';
 			<div class="row no-gutters slider-text align-items-end">
 				<div class="col-md-9 ftco-animate pb-5">
 					<p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.php">Главная <i
-									class="ion-ios-arrow-forward"></i></a></span> <span>Все проекты  </span></p>
+									class="ion-ios-arrow-forward"></i></a></span> <span>Все проекты </span></p>
 					<h1 class="mb-0 bread">Все проекты </h1>
 				</div>
 			</div>
@@ -145,61 +145,71 @@ include 'main_script.php';
 
 									} elseif (isset($_GET['search'])) {
 										echo '
-										<li><a href="?category=0&page=1">Оборудование на постоянных магнитах <span
+									
+										
+										
+										
+										
+										
+										
+										
+										
+
+										<li><a href="?category=0&page=1">Аналитика <span
 										class="ion-ios-arrow-forward"></span></a>
 										</li>
-										<li><a href="?category=1&page=1">Промышленные комплектующие TECHNIX <span
+										<li><a href="?category=2&page=1">Backen <span
 											class="ion-ios-arrow-forward"></span></a></li>
-										<li><a href="?category=2&page=1">Аккумуляторные батареи FIAMM <span
+										<li><a href="?category=3&page=1">Data Science <span
 											class="ion-ios-arrow-forward"></span></a></li>
-										<li><a href="?category=3&page=1">Приборы контроля и регулирования техпроцессов <span
-											class="ion-ios-arrow-forward"></span></a></li>
-										<li><a href="?category=4&page=1">Ручной инструмент BERGER <span
+										<li><a href="?category=4&page=1">Разработка ПО<span
 											class="ion-ios-arrow-forward"></span></a>
 										</li>
-										<li><a href="?category=5&page=1">Грузоподъемное оборудование GEARSEN <span
+										<li><a href="?category=5&page=1">SysAdm <span
 											class="ion-ios-arrow-forward"></span></a></li>
-										<li><a href="?category=6&page=1">Запчасти автотранспорта и спецтехники, цепи противоскольжения и
-										шинозащитные, шины и диски <span class="ion-ios-arrow-forward"></span></a>
+										<li><a href="?category=6&page=1">Базы данных <span class="ion-ios-arrow-forward"></span></a>
 										</li>
-										<li><a href="?category=7&page=1">Электроинструменты и принадлежности FEIN <span
+										<li><a href="?category=7&page=1">Безопасность <span
 											class="ion-ios-arrow-forward"></span></a></li>
-										<li><a href="?category=8&page=1">Светодиодные светильники <span
+										<li><a href="?category=8&page=1">DevOps <span
 											class="ion-ios-arrow-forward"></span></a>
 										</li>
-										<li><a href="?category=9&page=1">Пропорциональные объёмные дозаторы MIXTRON<span
+										<li><a href="?category=9&page=1">Mobile<span
 											class="ion-ios-arrow-back"></span></a></li>
-										<li><a href="?category=10&page=1">Биоакустические отпугиватели птиц <span
-											class="ion-ios-arrow-forward"></span></a></li>';
+										<li><a href="?category=10&page=1">AI <span
+											class="ion-ios-arrow-forward"></span></a></li>
+										<li><a href="?category=1&page=1">Data Engineer <span
+										class="ion-ios-arrow-forward"></span></a></li>';
 
 									} else {
 										echo '
-											<li><a href="?category=0&page=1">Оборудование на постоянных магнитах <span
+											<li><a href="?category=0&page=1">Аналитика <span
 											class="ion-ios-arrow-forward"></span></a>
 											</li>
-											<li><a href="?category=1&page=1">Промышленные комплектующие TECHNIX <span
+											
+											<li><a href="?category=2&page=1">Backen <span
 												class="ion-ios-arrow-forward"></span></a></li>
-											<li><a href="?category=2&page=1">Аккумуляторные батареи FIAMM <span
+											<li><a href="?category=3&page=1">Data Science <span
 												class="ion-ios-arrow-forward"></span></a></li>
-											<li><a href="?category=3&page=1">Приборы контроля и регулирования техпроцессов <span
-												class="ion-ios-arrow-forward"></span></a></li>
-											<li><a href="?category=4&page=1">Ручной инструмент BERGER <span
+											<li><a href="?category=4&page=1">Разработка ПО<span
 												class="ion-ios-arrow-forward"></span></a>
 											</li>
-											<li><a href="?category=5&page=1">Грузоподъемное оборудование GEARSEN <span
+											<li><a href="?category=5&page=1">SysAdm <span
 												class="ion-ios-arrow-forward"></span></a></li>
-											<li><a href="?category=6&page=1">Запчасти автотранспорта и спецтехники, цепи противоскольжения и
-											шинозащитные, шины и диски <span class="ion-ios-arrow-forward"></span></a>
+											<li><a href="?category=6&page=1">Базы данных<span class="ion-ios-arrow-forward"></span></a>
 											</li>
-											<li><a href="?category=7&page=1">Электроинструменты и принадлежности FEIN <span
+											<li><a href="?category=7&page=1">Безопасность <span
 												class="ion-ios-arrow-forward"></span></a></li>
-											<li><a href="?category=8&page=1">Светодиодные светильники <span
+											<li><a href="?category=8&page=1">DevOps <span
 												class="ion-ios-arrow-forward"></span></a>
 											</li>
-											<li class="active"><a href="?category=9&page=1">Пропорциональные объёмные дозаторы MIXTRON<span
+											<li class="active"><a href="?category=9&page=1">Mobile<span
 												class="ion-ios-arrow-back"></span></a></li>
-											<li><a href="?category=10&page=1">Биоакустические отпугиватели птиц <span
-												class="ion-ios-arrow-forward"></span></a></li>';
+											<li><a href="?category=10&page=1">AI <span
+												class="ion-ios-arrow-forward"></span></a></li>
+											<li><a href="?category=1&page=1">Data Engineer <span
+											class="ion-ios-arrow-forward"></span></a></li>'
+										;
 
 									}
 
@@ -276,7 +286,7 @@ include 'main_script.php';
 									echo '<div class="col-md-5 d-flex ftco-animate">
 										<div class="blog-entry align-self-stretch">
 											<a name="id' . $iddds . '" class="block-20 rounded"
-												style="background-image: url(images/' . $dataaa['product_image'] . ');">
+												style="background-image: url(' . $dataaa['product_image'] . ');">
 												</a>
 												<div class="text mt-3 text-center">';
 									$resultt = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE '$iddds'");
@@ -325,7 +335,7 @@ include 'main_script.php';
 											<div class="col-md-5 d-flex ftco-animate">
 												<div class="blog-entry align-self-stretch">
 													<a name="id' . $maxid . '" class="block-20 rounded"
-														style="background-image: url(images/' . $row['product_image'] . ');">
+														style="background-image: url(' . $row['product_image'] . ');">
 														</a>
 														<div class="text mt-3 text-center">';
 									$resulttt = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE '$maxid'AND `product_class` LIKE '$category'"); // имя

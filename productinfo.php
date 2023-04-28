@@ -70,7 +70,7 @@ include 'main_script.php';
 					<li class="nav-item"><a href="index.php" class="nav-link">Главная</a></li>
 					<li class="nav-item"><a href="shop.php" class="nav-link">Все проекты </a></li>
 					<li class="nav-item"><a href="cart.php" class="nav-link">Мои проекты</a></li>
-					<li class="nav-item"><a href="contact.php" class="nav-link">Связаться с нами</a></li>
+					<li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>
 					<li class="nav-item active"><a href="team.php" class="nav-link">Все проекты </a></li>
 					<li class="nav-item"><a href="user.php" class="nav-link">Профиль</a></li>
 				</ul>
@@ -86,7 +86,7 @@ include 'main_script.php';
 			<div class="row no-gutters slider-text align-items-end">
 				<div class="col-md-9 ftco-animate pb-5">
 					<p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.php">Главная <i
-									class="ion-ios-arrow-forward"></i></a></span> <span>Все проекты  <i
+									class="ion-ios-arrow-forward"></i></a></span> <span>Все проекты <i
 								class="ion-ios-arrow-forward"></i></span></p>
 					<h1 class="mb-0 bread">Все проекты </h1>
 				</div>
@@ -112,8 +112,20 @@ include 'main_script.php';
 							$resulttt = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE
 							'$productid'"); // имя
 							while ($rowww = $resulttt->fetch_assoc()) {
-								echo $rowww['product_name'];
+								echo '<div class="col-md-12">'.$rowww['product_name'].'</div>';
 							}
+
+							$userid = mysqli_query($link, "SELECT `user_id` FROM `products` WHERE `id` LIKE '$productid'");
+							while ($userid2 = $userid->fetch_assoc()) {
+								$useridd = $userid2['user_id'];
+								$username1 = mysqli_query($link, "SELECT `user_name` FROM `users` WHERE `user_id` LIKE '$useridd'");
+								while ($username = $username1->fetch_assoc()) {
+									echo '<div class="col-md-12">'.$username['user_name'] .'</div>';
+								}
+
+
+							}
+
 						}
 
 
@@ -124,7 +136,7 @@ include 'main_script.php';
 					$result = mysqli_query($link, "SELECT `product_image` FROM `products` WHERE `id` LIKE '$productid'"); // картинка
 					while ($row = $result->fetch_assoc()) {
 						echo '<div class="img d-flex align-items-end ">
-						<img src="images/' . $row['product_image'] . '" style="
+						<img src="' . $row['product_image'] . '" style="
 						max-height: 400px;
 					">
 		
@@ -154,7 +166,7 @@ include 'main_script.php';
 							echo '
 								<form method="POST">
 									<input name="buy' . $_GET['id'] . '" class="btn btn-primary text-center form-control submit px-3" type="submit"
-										value="Купить">
+										value="Хочу участвовать!">
 								</form>';
 						}
 

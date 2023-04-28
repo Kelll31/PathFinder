@@ -21,7 +21,7 @@ function generateCode($length = 6)
 }
 
 // Соединямся с БД
-$link = mysqli_connect("localhost", "root", "", "test");
+$link = mysqli_connect("localhost", "root", "", "pathfinder");
 
 
 if (isset($_POST['submit'])) {

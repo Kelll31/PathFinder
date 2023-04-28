@@ -66,7 +66,7 @@
 					<li class="nav-item"><a href="index.php" class="nav-link">Главная</a></li>
 					<li class="nav-item"><a href="shop.php" class="nav-link">Все проекты </a></li>
 					<li class="nav-item"><a href="cart.php" class="nav-link">Мои проекты</a></li>
-					<li class="nav-item"><a href="contact.php" class="nav-link">Связаться с нами</a></li>
+					<li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>
 					<li class="nav-item active"><a href="team.php" class="nav-link">Мои 11</a></li>
 					<li class="nav-item"><a href="user.php" class="nav-link">Профиль</a></li>
 				</ul>

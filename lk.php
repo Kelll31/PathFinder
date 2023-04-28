@@ -6,7 +6,7 @@ include 'main_script.php';
 if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'")->fetch_array() != 0) {
 
 } else {
-  header('Location: http://localhost/tparf/user.php');
+  header('Location: http://localhost/PathFinder/user.php');
 }
 
 ?>
@@ -76,7 +76,7 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
           <li class="nav-item"><a href="index.php" class="nav-link">Главная</a></li>
           <li class="nav-item"><a href="shop.php" class="nav-link">Все проекты </a></li>
           <li class="nav-item"><a href="cart.php" class="nav-link">Мои проекты</a></li>
-          <li class="nav-item"><a href="contact.php" class="nav-link">Связаться с нами</a></li>
+          <li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>
           <li class="nav-item"><a href="team.php" class="nav-link">Мои 11</a></li>
           <li class="nav-item active"><a href="user.php" class="nav-link">Профиль</a></li>
         </ul>
@@ -249,7 +249,7 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
                   $userid = $data['user_id'];
                   if ($userid == 1) {
                     echo '<a href="orderinfo.php" class="py-1 d-block subheading ">>Посмотреть все Проекты<</a>
-                    <span class="subheading">Последние 20 заказов:</span>
+                    <span class="subheading">Последние 20 Проектов:</span>
                     <div class="text mt-3 text-center">';
 
                     $resul = mysqli_query($link, "SELECT MAX(`order_id`) FROM `orders` WHERE 1");
@@ -264,7 +264,7 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
                           while ($dataaa = $resultt->fetch_assoc()) {
                             $date = $dataaa['date'];
                           }
-                          echo '<h6 class="heading"><a href=orderinfo.php?order_id=' . $data['order_id'] . '>Заказ от ' . $date . '</a></h6>';
+                          echo '<h6 class="heading"><a href=orderinfo.php?order_id=' . $data['order_id'] . '>Проект от ' . $date . '</a></h6>';
                         }
                         $id = $id - 1;
                       }
@@ -286,7 +286,7 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
                         while ($date1 = $date2->fetch_assoc()) {
                           $date = $date1['date'];
                         }
-                        echo '<h6 class="heading"><a href=orderinfo.php?order_id=' . $data['order_id'] . '>Заказ от ' . $date . '</a></h6>';
+                        echo '<h6 class="heading"><a href=orderinfo.php?order_id=' . $data['order_id'] . '>Проект от ' . $date . '</a></h6>';
                       }
                     }
                   }

@@ -1,6 +1,6 @@
 <?php
 
-$link = mysqli_connect("localhost", "root", "", "test");
+$link = mysqli_connect("localhost", "root", "", "pathfinder");
 $hashh = 0;
 if (!isset($_COOKIE["hash"])) {
 	setcookie("hash", generateCode(32), time() + 60 * 60 * 24);
