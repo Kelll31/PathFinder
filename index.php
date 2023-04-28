@@ -71,9 +71,15 @@ include 'main_script.php';
 				<ul class="navbar-nav mr-auto topmenu">
 					<li class="nav-item active"><a href="index.php" class="nav-link">Главная</a></li>
 					<li class="nav-item"><a href="shop.php" class="nav-link">Все проекты </a></li>
-					<li class="nav-item"><a href="cart.php" class="nav-link">Мои проекты</a></li>
-					<li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>
-					<li class="nav-item"><a href="team.php" class="nav-link">Мои 11</a></li>
+					<?php
+					if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'")->fetch_array() != 0) {
+						echo '
+						<li class="nav-item"><a href="cart.php" class="nav-link">Мои проекты</a></li>
+						<li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>';
+					} else {
+					}
+					?>
+
 					<li class="nav-item"><a href="user.php" class="nav-link">Профиль</a></li>
 				</ul>
 			</div>
@@ -263,114 +269,6 @@ include 'main_script.php';
 	</section>
 
 
-	<section class="ftco-section ftco-no-pt ftco-no-pb">
-		<div class="container-fluid px-md-0">
-			<div class="row no-gutters">
-				<div class="col-md-4 ftco-animate">
-					<div class="img d-flex align-items-end ">
-						<a href="shop.php" class="work img d-flex align-items-end "
-							style="background-image: url('images/ebmpapst.jpg');">
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 ftco-animate">
-					<div class="img d-flex align-items-end ">
-						<a href="shop.php" class="work img d-flex align-items-end "
-							style="background-image: url('images/magnit.jpg');">
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 ftco-animate">
-					<div class="img d-flex align-items-end ">
-						<a href="shop.php" class="work img d-flex align-items-end "
-							style="background-image: url('images/d5eea0acbf0747998e59670088f41a83.jpg');">
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 ftco-animate">
-					<div class="img d-flex align-items-end ">
-						<a href="shop.php" class="work img d-flex align-items-end "
-							style="background-image: url('images/gearsen.png');">
-						</a>
-					</div>
-				</div>
-
-
-				<div class="col-md-4 ftco-animate">
-					<div class="img d-flex align-items-end ">
-						<a href="shop.php" class="work img d-flex align-items-end "
-							style="background-image: url('images/fiamm.png');">
-						</a>
-					</div>
-				</div>
-
-				<div class="col-md-4 ftco-animate">
-					<div class="img d-flex align-items-end ">
-						<a href="shop.php" class="work img d-flex align-items-end "
-							style="background-image: url('images/97eb776ce79d486ebda4c83faebc460c.jpg');">
-						</a>
-					</div>
-				</div>
-
-				<div class="col-md-4 ftco-animate">
-					<div class="img d-flex align-items-end ">
-						<a href="shop.php" class="work img d-flex align-items-end "
-							style="background-image: url('images/berger.jpg');">
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 ftco-animate">
-					<div class="img d-flex align-items-end ">
-						<a href="shop.php" class="work img d-flex align-items-end "
-							style="background-image: url('images/zapchasti-cepi-shiny-diski.jpg');">
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 ftco-animate">
-					<div class="img d-flex align-items-end ">
-						<a href="shop.php" class="work img d-flex align-items-end "
-							style="background-image: url('images/880d3810678c4ff38fcbb80c343d904b.jpg');">
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 ftco-animate">
-					<div class="img d-flex align-items-end ">
-						<a href="shop.php" class="work img d-flex align-items-end "
-							style="background-image: url('images/fein.png');">
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 ftco-animate">
-					<div class="img d-flex align-items-end ">
-						<a href="shop.php" class="work img d-flex align-items-end "
-							style="background-image: url('images/proporcionalnyj_obemnyj_dozator.jpg');">
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 ftco-animate">
-					<div class="img d-flex align-items-end ">
-						<a href="shop.php" class="work img d-flex align-items-end "
-							style="background-image: url('images/cf31d03c77f54ed587485be98de87f7a.jpg');">
-						</a>
-					</div>
-				</div>
-				<div class="col-md-4 ftco-animate">
-					<div class="img d-flex align-items-end ">
-						<a href="shop.php" class="work img d-flex align-items-end "
-							style="background-image: url('images/8.jpg');">
-						</a>
-					</div>
-				</div>
-
-
-
-			</div>
-		</div>
-	</section>
-
-
-
-
 	<footer class="footer">
 		<div class="container-fluid px-lg-5">
 			<div class="row">
@@ -392,7 +290,7 @@ include 'main_script.php';
 							<div class="row justify-content-center">
 								<div class="col-md-12 col-lg-10">
 									<div class="row">
-										
+
 										<div class="col-md-4 mb-md-0 mb-4">
 											<h2 class="footer-heading">Меню</h2>
 											<ul class="list-unstyled">

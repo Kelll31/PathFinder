@@ -75,9 +75,15 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
         <ul class="navbar-nav mr-auto topmenu">
           <li class="nav-item"><a href="index.php" class="nav-link">Главная</a></li>
           <li class="nav-item"><a href="shop.php" class="nav-link">Все проекты </a></li>
-          <li class="nav-item"><a href="cart.php" class="nav-link">Мои проекты</a></li>
-          <li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>
-          <li class="nav-item"><a href="team.php" class="nav-link">Мои 11</a></li>
+          <?php
+          if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'")->fetch_array() != 0) {
+            echo '
+						<li class="nav-item"><a href="cart.php" class="nav-link">Мои проекты</a></li>
+						<li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>';
+          } else {
+          }
+          ?>
+
           <li class="nav-item active"><a href="user.php" class="nav-link">Профиль</a></li>
         </ul>
       </div>
@@ -215,7 +221,7 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
                                 echo "Email не совпадают </br>";
                               }
                             }
-                          }else{
+                          } else {
                             echo "Email указан не правильно</br>";
                           }
                           if (empty($_POST['phone']) == false) {
@@ -243,55 +249,54 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
                 </div>
               </div>
               <div class="col-md-13 text-center heading-section heading-section-white ftco-animate">
-                <?php
-                $result = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-                while ($data = $result->fetch_assoc()) {
-                  $userid = $data['user_id'];
-                  if ($userid == 1) {
-                    echo '<a href="orderinfo.php" class="py-1 d-block subheading ">>Посмотреть все Проекты<</a>
+              <?php
+      $result = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
+      while ($data = $result->fetch_assoc()) {
+        $userid = $data['user_id'];
+        if ($userid == 1) {
+          echo '<a href="orderinfo.php" class="py-1 d-block subheading ">>Посмотреть все Проекты<</a>
                     <span class="subheading">Последние 20 Проектов:</span>
                     <div class="text mt-3 text-center">';
 
-                    $resul = mysqli_query($link, "SELECT MAX(`order_id`) FROM `orders` WHERE 1");
-                    while ($dataa = $resul->fetch_assoc()) {
-                      $id = $dataa['MAX(`order_id`)'];
-                      for ($i = 1; $i <= 20; $i++) {
-                        $result = mysqli_query($link, "SELECT `order_id` FROM `orders` WHERE `order_id` = '$id'");
-                        while ($data = $result->fetch_assoc()) {
-                          $data['order_id'];
+          $resul = mysqli_query($link, "SELECT MAX(`order_id`) FROM `orders` WHERE 1");
+          while ($dataa = $resul->fetch_assoc()) {
+            $id = $dataa['MAX(`order_id`)'];
+            for ($i = 1; $i <= 20; $i++) {
+              $result = mysqli_query($link, "SELECT `order_id` FROM `orders` WHERE `order_id` = '$id'");
+              while ($data = $result->fetch_assoc()) {
+                $data['order_id'];
 
-                          $resultt = mysqli_query($link, "SELECT `date` FROM `orders` WHERE `order_id` = '$id'");
-                          while ($dataaa = $resultt->fetch_assoc()) {
-                            $date = $dataaa['date'];
-                          }
-                          echo '<h6 class="heading"><a href=orderinfo.php?order_id=' . $data['order_id'] . '>Проект от ' . $date . '</a></h6>';
-                        }
-                        $id = $id - 1;
-                      }
-                    }
-
-
-                  } else {
-
-                    echo '<span class="subheading">Ваши Проекты:</span>
-                    <div class="text mt-3 text-center">';
-                    $resul = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-                    while ($dataa = $resul->fetch_assoc()) {
-                      $userr_id = $dataa['user_id'];
-                      $result = mysqli_query($link, "SELECT `order_id` FROM `orders` WHERE `users_id` = '$userr_id'");
-                      while ($data = $result->fetch_assoc()) {
-                        $dataaaaaaaa = $data['order_id'];
-
-                        $date2 = mysqli_query($link, "SELECT `date` FROM `orders` WHERE `order_id` LIKE '$dataaaaaaaa'");
-                        while ($date1 = $date2->fetch_assoc()) {
-                          $date = $date1['date'];
-                        }
-                        echo '<h6 class="heading"><a href=orderinfo.php?order_id=' . $data['order_id'] . '>Проект от ' . $date . '</a></h6>';
-                      }
-                    }
-                  }
+                $resultt = mysqli_query($link, "SELECT `date` FROM `orders` WHERE `order_id` = '$id'");
+                while ($dataaa = $resultt->fetch_assoc()) {
+                  $date = $dataaa['date'];
                 }
-                ?>
+                echo '<h6 class="heading"><a href=orderinfo.php?order_id=' . $data['order_id'] . '>Проект от ' . $date . '</a></h6>';
+              }
+              $id = $id - 1;
+            }
+          }
+
+
+        } else {
+
+          echo '<div class="text mt-3 text-center"> Ваши проекты:';
+          $user_idd = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
+          while ($dataa = $user_idd->fetch_assoc()) {
+            $userr_id = $dataa['user_id'];
+            $product_id = mysqli_query($link, "SELECT `id` FROM `products` WHERE `user_id` = '$userr_id'");
+            while ($product_id1 = $product_id->fetch_assoc()) {
+              $product_id2 = $product_id1['id'];
+
+              $date2 = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE '$product_id2'");
+              while ($date1 = $date2->fetch_assoc()) {
+                $date = $date1['product_name'];
+              }
+              echo '<h6 class="heading"><a href=productinfo.php?id=' . $product_id2 . '>Проект ' . $date . '</a></h6>';
+            }
+          }
+        }
+      }
+      ?>
               </div>
             </div>
           </div>

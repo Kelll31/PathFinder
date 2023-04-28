@@ -68,10 +68,16 @@ include 'main_script.php';
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav mr-auto topmenu">
 					<li class="nav-item"><a href="index.php" class="nav-link">Главная</a></li>
-					<li class="nav-item"><a href="shop.php" class="nav-link">Все проекты </a></li>
-					<li class="nav-item"><a href="cart.php" class="nav-link">Мои проекты</a></li>
-					<li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>
-					<li class="nav-item active"><a href="team.php" class="nav-link">Все проекты </a></li>
+					<li class="nav-item active"><a href="shop.php" class="nav-link">Все проекты </a></li>
+
+					<?php
+					if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'")->fetch_array() != 0) {
+						echo '
+						<li class="nav-item"><a href="cart.php" class="nav-link">Мои проекты</a></li>
+						<li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>';
+					} else {
+					}
+					?>
 					<li class="nav-item"><a href="user.php" class="nav-link">Профиль</a></li>
 				</ul>
 			</div>
@@ -112,7 +118,7 @@ include 'main_script.php';
 							$resulttt = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE
 							'$productid'"); // имя
 							while ($rowww = $resulttt->fetch_assoc()) {
-								echo '<div class="col-md-12">'.$rowww['product_name'].'</div>';
+								echo '<div class="col-md-12">' . $rowww['product_name'] . '</div>';
 							}
 
 							$userid = mysqli_query($link, "SELECT `user_id` FROM `products` WHERE `id` LIKE '$productid'");
@@ -120,7 +126,7 @@ include 'main_script.php';
 								$useridd = $userid2['user_id'];
 								$username1 = mysqli_query($link, "SELECT `user_name` FROM `users` WHERE `user_id` LIKE '$useridd'");
 								while ($username = $username1->fetch_assoc()) {
-									echo '<div class="col-md-12">'.$username['user_name'] .'</div>';
+									echo '<div class="col-md-12">' . $username['user_name'] . '</div>';
 								}
 
 
@@ -160,39 +166,43 @@ include 'main_script.php';
 			<div class="col-md-12">
 				<div class="form-group">
 					<?php
-					$resu = mysqli_query($link, "SELECT `user_hash` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-					while ($dat = $resu->fetch_assoc()) {
-						if ($dat['user_hash'] >= "0") {
-							echo '
-								<form method="POST">
-									<input name="buy' . $_GET['id'] . '" class="btn btn-primary text-center form-control submit px-3" type="submit"
+					$id = $_GET['id'];
+					$user_id = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
+					$idpr = mysqli_query($link, "SELECT `user_id` FROM `products` WHERE `id` LIKE '$id'");
+					
+						if ($user_id == $idpr) {
+
+							$resu = mysqli_query($link, "SELECT `user_hash` FROM `users` WHERE `user_hash` LIKE '$hashh'");
+							while ($dat = $resu->fetch_assoc()) {
+								if ($dat['user_hash'] >= "0") {
+									$id = $_GET['id'];
+									echo 'Вы создатель проекта';
+								}
+
+
+							}
+						} else {
+							$resu = mysqli_query($link, "SELECT `user_hash` FROM `users` WHERE `user_hash` LIKE '$hashh'");
+							while ($dat = $resu->fetch_assoc()) {
+								if ($dat['user_hash'] >= "0") {
+									$id = $_GET['id'];
+									echo '
+								<form method="post">
+									<input name="start' . $_GET['id'] . '" class="btn btn-primary text-center form-control submit px-3" type="submit"
 										value="Хочу участвовать!">
 								</form>';
+								}
+
+
+							}
+
 						}
-
-					}
-
-
-					$result = mysqli_query($link, "SELECT `user_cart` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-					while ($data = $result->fetch_assoc()) {
-						$data['user_cart'] = str_replace('[', ',', $data['user_cart']);
-						$data['user_cart'] = str_replace(']', ',', $data['user_cart']);
-						$data['user_cart'] = str_replace('0', ',', $data['user_cart']);
-						$data['user_cart'] = str_replace('', ',,', $data['user_cart']);
-						$cart = explode(",", $data['user_cart']);
-
-
-						if (!isset($_POST['buy' . $_GET['id'] . ''])) {
-						} else {
-
-							array_push($cart, $_GET['id']);
-							sort($cart);
-							$cartt = implode(",", $cart);
-							mysqli_query($link, "UPDATE `users` SET `user_cart`='$cartt' WHERE `user_hash` LIKE '$hashh'");
-							echo '<script> window.location.href = "productinfo.php?id=' . $_GET['id'] . '"; </script>';
-						}
+					
+					if (isset($_POST['start' . $id])) {
+						echo 'niggggggers';
 					}
 					?>
+
 				</div>
 			</div>
 		</div>

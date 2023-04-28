@@ -77,7 +77,7 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
           <li class="nav-item"><a href="shop.php" class="nav-link">Все проекты </a></li>
           <li class="nav-item"><a href="cart.php" class="nav-link">Мои проекты</a></li>
           <li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>
-          <li class="nav-item"><a href="team.php" class="nav-link">Мои 11</a></li>
+          
           <li class="nav-item active"><a href="user.php" class="nav-link">Профиль</a></li>
         </ul>
       </div>

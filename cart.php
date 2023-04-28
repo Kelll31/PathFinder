@@ -68,9 +68,14 @@ include 'main_script.php';
         <ul class="navbar-nav mr-auto topmenu">
           <li class="nav-item"><a href="index.php" class="nav-link">Главная</a></li>
           <li class="nav-item"><a href="shop.php" class="nav-link">Все проекты </a></li>
-          <li class="nav-item active"><a href="cart.php" class="nav-link">Мои проекты</a></li>
-          <li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>
-          <li class="nav-item"><a href="team.php" class="nav-link">Мои 11</a></li>
+          <?php
+          if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'")->fetch_array() != 0) {
+            echo '
+						<li class="nav-item active"><a href="cart.php" class="nav-link">Мои проекты</a></li>
+						<li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>';
+          } else {
+          }
+          ?>
           <li class="nav-item"><a href="user.php" class="nav-link">Профиль</a></li>
         </ul>
       </div>
@@ -98,292 +103,58 @@ include 'main_script.php';
 
   <section class="ftco-section">
     <div class="container">
-      <div class="row">
-        <div class="col-md-8">
+      <?php
+      $result = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
+      while ($data = $result->fetch_assoc()) {
+        $userid = $data['user_id'];
+        if ($userid == 1) {
+          echo '<a href="orderinfo.php" class="py-1 d-block subheading ">>Посмотреть все Проекты<</a>
+                    <span class="subheading">Последние 20 Проектов:</span>
+                    <div class="text mt-3 text-center">';
 
-          <div class="carousel-3d wrap" data-gap="20" data-bfc id="s1">
-            <figure>
+          $resul = mysqli_query($link, "SELECT MAX(`order_id`) FROM `orders` WHERE 1");
+          while ($dataa = $resul->fetch_assoc()) {
+            $id = $dataa['MAX(`order_id`)'];
+            for ($i = 1; $i <= 20; $i++) {
+              $result = mysqli_query($link, "SELECT `order_id` FROM `orders` WHERE `order_id` = '$id'");
+              while ($data = $result->fetch_assoc()) {
+                $data['order_id'];
 
-
-              <?php
-              $summ = 0;
-              $scherchik = 0;
-              $hashh = $_COOKIE["hash"];
-              if (mysqli_query($link, "SELECT `user_cart` FROM `users` WHERE `user_hash` LIKE '$hashh'")->fetch_array() == 0) {
-                echo "Вы еще ничего не добавляли";
-              } else {
-                $result = mysqli_query($link, "SELECT `user_cart` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-                while ($data = $result->fetch_assoc()) {
-                  $data['user_cart'] = str_replace('[', ',', $data['user_cart']);
-                  $data['user_cart'] = str_replace(']', ',', $data['user_cart']);
-                  $data['user_cart'] = str_replace('0', ',', $data['user_cart']);
-                  $data['user_cart'] = str_replace('', ',,', $data['user_cart']);
-                  $cart = explode(",", $data['user_cart']);
-                  $i = count($cart, true) - 1;
-                  $ii = 1;
-
-                  while (-1 < $i) {
-
-                    $result = mysqli_query($link, "SELECT `product_image` FROM `products` WHERE `id` LIKE '$cart[$i]'"); // картинка
-                    while ($row = $result->fetch_assoc()) {
-                      echo '
-                          <div>
-                            <div class="d-flex ftco-animate">
-                              <div class="blog-entry align-self-stretch">
-                                <a href="blog-single.php" class="block-20 rounded"
-                                  style="background-image: url(images/' . $row['product_image'] . ');">
-                                </a>
-                                <div class="text mt-3 text-center">';
-                      $resulttt = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE '$cart[$i]'"); // имя
-                      while ($rowww = $resulttt->fetch_assoc()) {
-                        echo '<h3 class="heading"><a href="#"> ' . $rowww['product_name'] . '</a>
-                                  </h3>
-                                  <div class="meta mb-2">
-                                    <div>';
-                      }
-                      $resultt = mysqli_query($link, "SELECT `product_price` FROM `products` WHERE `id` LIKE '$cart[$i]'"); // цена
-                      while ($roww = $resultt->fetch_assoc()) {
-                        echo $roww['product_price'];
-                      }
-                      echo '€
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>';
-                    }
-                    $i = $i - 1;
-                  }
+                $resultt = mysqli_query($link, "SELECT `date` FROM `orders` WHERE `order_id` = '$id'");
+                while ($dataaa = $resultt->fetch_assoc()) {
+                  $date = $dataaa['date'];
                 }
+                echo '<h6 class="heading"><a href=orderinfo.php?order_id=' . $data['order_id'] . '>Проект от ' . $date . '</a></h6>';
               }
-
-              ?>
-
-
-
-
-            </figure>
-            <nav>
-              <button class="nav prev btn btn-dark mt-4 nav-item"><span class="ion-ios-arrow-back"></span> Назад
-              </button>
-              <button class="nav next btn btn-dark mt-4 nav-item">Вперед <span
-                  class="ion-ios-arrow-forward"></span></button>
-            </nav>
-          </div>
-        </div>
-        <div class="text-center heading-section heading-section-white ftco-animate">
-          <span class="subheading">Ваша Мои проекты:</span>
-          <form method="POST">
-            <input name="deleteall" data-fancybox="" data-src="#authorization" type="submit"
-              class="btn btn-dark mt-4 w-100 cart-buy-btn" value="Удалить все">
-          </form>
-
-          <?php
-          if (!isset($_POST['deleteall'])) {
-          } else {
-            mysqli_query($link, "UPDATE `users` SET `user_cart`='0' WHERE `user_hash` LIKE '$hashh'");
-            echo '<script> window.location.href = "cart.php"; </script>';
-          }
-
-          for ($iii = 1; $iii <= count($cart, true) - 1; $iii++) {
-            if (!isset($_POST['delete' . $iii . ''])) {
-            } else {
-              $cart[$iii] = "";
-              $cartt = implode(",", $cart);
-              mysqli_query($link, "UPDATE `users` SET `user_cart`='$cartt' WHERE `user_hash` LIKE '$hashh'");
-              echo '<script> window.location.href = "cart.php"; </script>';
+              $id = $id - 1;
             }
-
-            if (!isset($_POST['add' . $iii . ''])) {
-            } else {
-
-              array_push($cart, $cart[$iii]);
-              sort($cart);
-              $cartt = implode(",", $cart);
-              mysqli_query($link, "UPDATE `users` SET `user_cart`='$cartt' WHERE `user_hash` LIKE '$hashh'");
-              echo '<script> window.location.href = "cart.php"; </script>';
-            }
-
           }
 
 
-          if (mysqli_query($link, "SELECT `user_cart` FROM `users` WHERE `user_hash` LIKE '$hashh'")->fetch_array() == 0) {
-            echo "Вы еще ничего не добавляли";
-          } else {
-            $result = mysqli_query($link, "SELECT `user_cart` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-            while ($data = $result->fetch_assoc()) {
-              $data['user_cart'] = str_replace('[', ',', $data['user_cart']);
-              $data['user_cart'] = str_replace(']', ',', $data['user_cart']);
-              $data['user_cart'] = str_replace('0', ',', $data['user_cart']);
-              $data['user_cart'] = str_replace('', ',,', $data['user_cart']);
+        } else {
 
-              //$values = array_count_values($cart);
-              //print_r($values);
-              //print_r(count($values, true) - 1);
-          
-              $cart = explode(",", $data['user_cart']);
-              $i = count($cart, true) - 1;
-              $ii = 1;
+          echo '<div class="text mt-3 text-center">';
+          $user_idd = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
+          while ($dataa = $user_idd->fetch_assoc()) {
+            $userr_id = $dataa['user_id'];
+            $product_id = mysqli_query($link, "SELECT `id` FROM `products` WHERE `user_id` = '$userr_id'");
+            while ($product_id1 = $product_id->fetch_assoc()) {
+              $product_id2 = $product_id1['id'];
 
-
-
-              while (-1 < $i) {
-                $result = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE '$cart[$i]'");
-                while ($row = $result->fetch_assoc()) {
-                  echo '
-              <div class="text mt-3 text-center">
-                <h6 class="heading">' . $row['product_name'] . '   ';
-                  $resultt = mysqli_query($link, "SELECT `product_price` FROM `products` WHERE `id` LIKE '$cart[$i]'");
-
-                  while ($roww = $resultt->fetch_assoc()) {
-                    echo $roww['product_price'];
-                    $scherchik = $scherchik + $roww['product_price'];
-
-                  }
-                  // /print_r($values[$i]. '<br>');
-                  echo '€ 
-                <form method="POST" >
-                <input name="add' . $i . '" class="btn btn-primary text-center" type="submit"
-                  value="Добавить">
-                  <input name="delete' . $i . '" class="btn btn-primary text-center" type="submit"
-                  value="Удалить">
-
-              </form>
-
-                </a></h6></div>
-                ';
-
-                }
-                $i = $i - 1;
+              $date2 = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE '$product_id2'");
+              while ($date1 = $date2->fetch_assoc()) {
+                $date = $date1['product_name'];
               }
-              echo '
-                  <script>
-                  schetchik = 0;
-                  totalprice =' . $scherchik . ';
-                  </script>                
-                  ';
-
-
-
-
+              echo '<h1 class="heading"><a href=productinfo.php?id=' . $product_id2 . '>Проект : ' . $date . '</a></h6>';
             }
-          }
-
-          ?>
-
-
-        </div>
-      </div>
-
-      <script>
-        window.addEventListener("load", () => {
-          var carousels = document.querySelectorAll(".carousel-3d");
-          for (var i = 0; i < carousels.length; i++) {
-            carousel(carousels[i]);
-          }
-        });
-        function carousel(root) {
-          var figure = root.querySelector("figure"),
-            nav = root.querySelector("nav"),
-            images = figure.children,
-            n = images.length,
-            gap = root.dataset.gap || 0,
-            bfc = "bfc" in root.dataset,
-            theta = 2 * Math.PI / n,
-            currImage = 0;
-          setupCarousel(n, parseFloat(getComputedStyle(images[0]).width));
-          window.addEventListener("resize", () => {
-            setupCarousel(n, parseFloat(getComputedStyle(images[0]).width));
-          });
-          setupNavigation();
-          function setupCarousel(n, s) {
-            var apothem = s / (2 * Math.tan(Math.PI / n));
-            figure.style.transformOrigin = `50% 50% ${-apothem}px`;
-            for (var i = 0; i < n; i++) images[i].style.padding = `0 ${gap}px`;
-            for (i = 0; i < n; i++) {
-              images[i].style.transformOrigin = `50% 50% ${-apothem}px`;
-              images[i].style.transform = `rotateY(${i * theta}rad)`;
-            }
-            if (bfc)
-              for (i = 0; i < n; i++) images[i].style.backfaceVisibility = "hidden";
-            rotateCarousel(currImage);
-          }
-          function setupNavigation() {
-            nav.addEventListener("click", onClick, true);
-            function onClick(e) {
-              e.stopPropagation();
-              var t = e.target;
-              if (t.tagName.toUpperCase() != "BUTTON") return;
-              if (t.classList.contains("next")) {
-                currImage++;
-              } else {
-                currImage--;
-              }
-              rotateCarousel(currImage);
-            }
-          }
-          function rotateCarousel(imageIndex) {
-            figure.style.transform = `rotateY(${imageIndex * -theta}rad)`;
           }
         }
-      </script>
+      }
+      ?>
+
+
+
   </section>
-
-
-  <section class="ftco-section testimony-section bg-primary">
-    <div class="container">
-      <div class="row justify-content-center mb-5">
-        <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-          <span class="subheading">Итого</span>
-          <h2 class="mb-4">Сумма заказа</h2>
-          <h2 class="mb-4">
-            <script>
-              document.write(totalprice, " €");
-            </script>
-          </h2>
-
-          <form method="POST">
-            <input name="confirmmm" class="btn btn-dark mt-4 w-100 cart-buy-btn" type="submit" value="Оформить заказ">
-          </form>
-          <?php
-
-          if (!isset($_POST['confirmmm'])) {
-          } else {
-
-
-            $result = mysqli_query($link, "SELECT `user_cart` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-            while ($data = $result->fetch_assoc()) {
-              $data['user_cart'] = str_replace('[', ',', $data['user_cart']);
-              $data['user_cart'] = str_replace(']', ',', $data['user_cart']);
-              $data['user_cart'] = str_replace('0', ',', $data['user_cart']);
-              $data['user_cart'] = str_replace('', ',,', $data['user_cart']);
-              $date = date('Y-m-d H:i:s');
-              $ordeer = $data['user_cart'];
-
-              $resul = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-              while ($dataa = $resul->fetch_assoc()) {
-                $userr_id = $dataa['user_id'];
-                mysqli_query($link, "INSERT INTO `orders`(`product_ids`, `date`, `users_id`,`stat`) VALUES ('$ordeer','$date','$userr_id','Cоздан')");
-                mysqli_query($link, "UPDATE `users` SET `user_cart`='0' WHERE `user_hash` LIKE '$hashh'");
-                mysqli_query($link, "SELECT `user_cart` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-                echo 'Заказ оформлен <script> window.location.href = "lk.php"; </script>';
-                echo "Заказ оформлен";
-              }
-            }
-          }
-
-          ?>
-        </div>
-      </div>
-      <div class="row ftco-animate">
-        <div class="col-md-12">
-
-        </div>
-      </div>
-    </div>
-  </section>
-
 
 
 

@@ -69,9 +69,14 @@ include 'main_script.php';
 				<ul class="navbar-nav mr-auto topmenu">
 					<li class="nav-item"><a href="index.php" class="nav-link">Главная</a></li>
 					<li class="nav-item active"><a href="shop.php" class="nav-link">Все проекты </a></li>
-					<li class="nav-item"><a href="cart.php" class="nav-link">Мои проекты</a></li>
-					<li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>
-					<li class="nav-item"><a href="team.php" class="nav-link">Мои 11</a></li>
+					<?php
+					if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'")->fetch_array() != 0) {
+						echo '
+						<li class="nav-item"><a href="cart.php" class="nav-link">Мои проекты</a></li>
+						<li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>';
+					} else {
+					}
+					?>
 					<li class="nav-item"><a href="user.php" class="nav-link">Профиль</a></li>
 				</ul>
 			</div>
@@ -145,71 +150,59 @@ include 'main_script.php';
 
 									} elseif (isset($_GET['search'])) {
 										echo '
-									
-										
-										
-										
-										
-										
-										
-										
-										
-
-										<li><a href="?category=0&page=1">Аналитика <span
+										<li><a href="?category=0&page=1">Аналитика<span
 										class="ion-ios-arrow-forward"></span></a>
 										</li>
-										<li><a href="?category=2&page=1">Backen <span
+										<li><a href="?category=1&page=1">Backen <span
 											class="ion-ios-arrow-forward"></span></a></li>
-										<li><a href="?category=3&page=1">Data Science <span
+										<li><a href="?category=2&page=1">Data Science <span
 											class="ion-ios-arrow-forward"></span></a></li>
-										<li><a href="?category=4&page=1">Разработка ПО<span
+										<li><a href="?category=3&page=1">Разработка ПО <span
+											class="ion-ios-arrow-forward"></span></a></li>
+										<li><a href="?category=4&page=1">SysAdm<span
 											class="ion-ios-arrow-forward"></span></a>
 										</li>
-										<li><a href="?category=5&page=1">SysAdm <span
+										<li><a href="?category=5&page=1">Базы данных<span
 											class="ion-ios-arrow-forward"></span></a></li>
-										<li><a href="?category=6&page=1">Базы данных <span class="ion-ios-arrow-forward"></span></a>
+										<li><a href="?category=6&page=1">Безопасность<span class="ion-ios-arrow-forward"></span></a>
 										</li>
-										<li><a href="?category=7&page=1">Безопасность <span
+										<li><a href="?category=7&page=1">DevOps<span
 											class="ion-ios-arrow-forward"></span></a></li>
-										<li><a href="?category=8&page=1">DevOps <span
+										<li><a href="?category=8&page=1">Mobile<span
 											class="ion-ios-arrow-forward"></span></a>
 										</li>
-										<li><a href="?category=9&page=1">Mobile<span
+										<li><a href="?category=9&page=1">AI<span
 											class="ion-ios-arrow-back"></span></a></li>
-										<li><a href="?category=10&page=1">AI <span
-											class="ion-ios-arrow-forward"></span></a></li>
-										<li><a href="?category=1&page=1">Data Engineer <span
-										class="ion-ios-arrow-forward"></span></a></li>';
+										<li><a href="?category=10&page=1">Data Engineer<span
+											class="ion-ios-arrow-forward"></span></a></li>';
 
 									} else {
 										echo '
-											<li><a href="?category=0&page=1">Аналитика <span
+											<li><a href="?category=0&page=1">Аналитика<span
 											class="ion-ios-arrow-forward"></span></a>
 											</li>
-											
-											<li><a href="?category=2&page=1">Backen <span
+											<li><a href="?category=1&page=1">Backen <span
 												class="ion-ios-arrow-forward"></span></a></li>
-											<li><a href="?category=3&page=1">Data Science <span
+											<li><a href="?category=2&page=1">Data Science<span
 												class="ion-ios-arrow-forward"></span></a></li>
-											<li><a href="?category=4&page=1">Разработка ПО<span
+											<li><a href="?category=3&page=1">Разработка ПО <span
+												class="ion-ios-arrow-forward"></span></a></li>
+											<li><a href="?category=4&page=1">SysAdm<span
 												class="ion-ios-arrow-forward"></span></a>
 											</li>
-											<li><a href="?category=5&page=1">SysAdm <span
+											<li><a href="?category=5&page=1">Базы данных<span
 												class="ion-ios-arrow-forward"></span></a></li>
-											<li><a href="?category=6&page=1">Базы данных<span class="ion-ios-arrow-forward"></span></a>
+											<li><a href="?category=6&page=1">Безопасность<span class="ion-ios-arrow-forward"></span></a>
 											</li>
-											<li><a href="?category=7&page=1">Безопасность <span
+											<li><a href="?category=7&page=1">DevOps<span
 												class="ion-ios-arrow-forward"></span></a></li>
-											<li><a href="?category=8&page=1">DevOps <span
+											<li><a href="?category=8&page=1">Mobile<span
 												class="ion-ios-arrow-forward"></span></a>
 											</li>
-											<li class="active"><a href="?category=9&page=1">Mobile<span
+											<li class="active"><a href="?category=9&page=1">AI<span
 												class="ion-ios-arrow-back"></span></a></li>
-											<li><a href="?category=10&page=1">AI <span
-												class="ion-ios-arrow-forward"></span></a></li>
-											<li><a href="?category=1&page=1">Data Engineer <span
-											class="ion-ios-arrow-forward"></span></a></li>'
-										;
+											<li><a href="?category=10&page=1">Data Engineer <span
+												class="ion-ios-arrow-forward"></span></a></li>';
 
 									}
 
@@ -220,44 +213,9 @@ include 'main_script.php';
 								</div>
 							</form>
 						</div>
+						
 
-						<div class="sidebar-box ftco-animate">
-							<h3>Вам может понравится </h3>
-							<div class="block-21 mb-4 d-flex">
-								<a class="blog-img mr-4" style="background-image: url(images/P003.jpg);"></a>
-								<div class="text">
-									<h3 class="heading">Дозатор MIXTRON MX.150.P003</h3>
-									<h3 class="heading"><a href="#">Перейти</a></h3>
-								</div>
-							</div>
-							<div class="block-21 mb-4 d-flex">
-								<a class="blog-img mr-4" style="background-image: url(images/P150.jpg);"></a>
-								<div class="text">
-									<h3 class="heading">Дозатор MIXTRON MX.150.P150</h3>
-									<h3 class="heading"><a href="#">Перейти</a></h3>
-								</div>
-							</div>
-							<div class="block-21 mb-4 d-flex">
-								<a class="blog-img mr-4" style="background-image: url(images/P110.jpg);"></a>
-								<div class="text">
-									<h3 class="heading">Дозатор MIXTRON MX.150.P110</h3>
-									<h3 class="heading"><a href="#">Перейти</a></h3>
-
-								</div>
-							</div>
-
-						</div>
-
-						<div class="sidebar-box ftco-animate">
-							<h3>Теги</h3>
-							<div class="tagcloud">
-								<a href="#" class="tag-cloud-link">Трактора</a>
-								<a href="#" class="tag-cloud-link">Стройка</a>
-								<a href="#" class="tag-cloud-link">Водоснабжение</a>
-								<a href="#" class="tag-cloud-link">Д30</a>
-								<a href="#" class="tag-cloud-link">Решения для ИП</a>
-							</div>
-						</div>
+						
 					</div>
 
 					<div class="row d-flex">
