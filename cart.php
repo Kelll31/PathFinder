@@ -188,11 +188,39 @@ include 'main_script.php';
               while ($product_id1 = $product_id->fetch_assoc()) {
                 $product_id2 = $product_id1['id'];
 
+                $result = mysqli_query($link, "SELECT `user_answer` FROM `products` WHERE `id` LIKE '$product_id2'");
+                while ($data = $result->fetch_assoc()) {
+                  $data['user_answer'] = str_replace('[', ',', $data['user_answer']);
+                  $data['user_answer'] = str_replace(']', ',', $data['user_answer']);
+                  $data['user_answer'] = str_replace('0', ',', $data['user_answer']);
+                  $data['user_answer'] = str_replace('', ',,', $data['user_answer']);
+                  $cart = explode(",", $data['user_answer']);
+                  $cart_count = count($cart) - 2;
+                  if ($cart_count <= 0) {
+                    $cart_count = 'Нет';
+                  }
+
+                }
                 $date2 = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE '$product_id2'");
                 while ($date1 = $date2->fetch_assoc()) {
                   $date = $date1['product_name'];
                 }
-                echo '<h4 class="heading"><a href=productinfo.php?id=' . $product_id2 . '>Проект : ' . $date . '</a></h6>';
+                if ($cart_count == 1) {
+                  echo '<h4 class="heading"><a href=productinfo.php?id=' . $product_id2 . '>Проект : ' . $date . '</a>
+                  ' . $cart_count . ' запрос
+                </h6>';
+                }
+                if ($cart_count > 1 && $cart_count < 5) {
+                  echo '<h4 class="heading"><a href=productinfo.php?id=' . $product_id2 . '>Проект : ' . $date . '</a>
+                  ' . $cart_count . ' запроса
+                </h6>';
+                }
+                if ($cart_count > 5) {
+                  echo '<h4 class="heading"><a href=productinfo.php?id=' . $product_id2 . '>Проект : ' . $date . '</a>
+                  ' . $cart_count . ' запросов
+                </h6>';
+                }
+
               }
             }
           }

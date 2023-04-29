@@ -68,11 +68,11 @@ include 'main_script.php';
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav mr-auto topmenu">
 					<li class="nav-item"><a href="index.php" class="nav-link">Главная</a></li>
-					<li class="nav-item active"><a href="shop.php" class="nav-link">Все проекты </a></li>
+					<li class="nav-item "><a href="shop.php" class="nav-link">Все проекты </a></li>
 					<?php
 					if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'")->fetch_array() != 0) {
 						echo '
-						<li class="nav-item"><a href="cart.php" class="nav-link">Мои проекты</a></li>
+						<li class="nav-item active"><a href="cart.php" class="nav-link">Мои проекты</a></li>
 						<li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>';
 					} else {
 					}
@@ -130,7 +130,7 @@ include 'main_script.php';
 					while ($row = $result->fetch_assoc()) {
 						echo '<div class="img d-flex align-items-end ">
 						<img src="' . $row['product_image'] . '" style="
-						max-height: 180px;
+						max-width: 200px;
 					">
 		
 						</div>';
@@ -167,6 +167,34 @@ include 'main_script.php';
 
 					if ($prod_user_id2 == $userid) {
 						echo '<input name="buy' . $_GET['id'] . '" class="btn btn-primary text-center form-control submit px-3"	value="Вы владелец проекта">';
+						echo '<h4 class="heading">Запросы на участие</h4>';
+
+						$produuuuct = $_GET['id'];
+						$result = mysqli_query($link, "SELECT `user_answer` FROM `products` WHERE `id` LIKE '$produuuuct'");
+						while ($data = $result->fetch_assoc()) {
+							$data['user_answer'] = str_replace('[', ',', $data['user_answer']);
+							$data['user_answer'] = str_replace(']', ',', $data['user_answer']);
+							$data['user_answer'] = str_replace('0', ',', $data['user_answer']);
+							$data['user_answer'] = str_replace('', ',,', $data['user_answer']);
+							$cart = explode(",", $data['user_answer']);
+							$cart_count = count($cart);
+							if ($cart_count <= 0) {
+								$cart_count = 'Нет';
+							}
+							$i = 1;
+							while ($i != $cart_count) {
+								$user_id_ans = $cart[$i];
+
+								$date2 = mysqli_query($link, "SELECT `user_name` FROM `users` WHERE `user_id` LIKE '$user_id_ans'");
+								while ($date1 = $date2->fetch_assoc()) {
+									$date = $date1['user_name'];
+									echo '<h4 class="heading">' . $i . '. <a href=lk.php?openid=' . $user_id_ans . '>' . $date . '</a></h6>';
+								}
+								$i = $i + 1;
+							}
+
+						}
+
 					} else {
 
 
@@ -187,7 +215,7 @@ include 'main_script.php';
 								sort($cart);
 								$cartt = implode(",", $cart);
 								mysqli_query($link, "UPDATE `users` SET `user_request`='$cartt' WHERE `user_hash` LIKE '$hashh'");
-								echo '<script> window.location.href = "productinfo.php?id=' . $_GET['id'] . '"; </script>';
+								echo '<script> window.location.href = "cart.php"; </script>';
 							}
 						}
 						$resu = mysqli_query($link, "SELECT `user_hash` FROM `users` WHERE `user_hash` LIKE '$hashh'");
@@ -199,7 +227,7 @@ include 'main_script.php';
 									</form>';
 						}
 					}
-					
+
 
 
 
