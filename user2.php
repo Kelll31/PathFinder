@@ -84,15 +84,17 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
           <li class="nav-item"><a href="index.php" class="nav-link">Главная</a></li>
           <li class="nav-item"><a href="shop.php" class="nav-link">Все проекты </a></li>
           <?php
-          if ($userid == 1) {
-            echo '
+          if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'")->fetch_array() != 0) {
+            if ($userid == 1) {
+              echo '
 						<li class="nav-item"><a href="orderinfo.php" class="nav-link">Админка</a></li>
 						<li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>';
 
-          } elseif (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'")->fetch_array() != 0) {
-            echo '
+            } elseif ($userid != 1) {
+              echo '
 						<li class="nav-item"><a href="cart.php" class="nav-link">Мои проекты</a></li>
 						<li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>';
+            }
           }
           ?>
 
@@ -232,7 +234,8 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
           <div class="row">
             <div class="col-md-4 mb-md-0 mb-4">
               <h2 class="footer-heading">Еще о нас</h2>
-              <p>Мы онлайн-платформа для поиска талантливых единомышленников в сфере информационных технологий. Быстрая, удобная и эффективная платформа объединения людей в IT секторе.</p>
+              <p>Мы онлайн-платформа для поиска талантливых единомышленников в сфере информационных технологий. Быстрая,
+                удобная и эффективная платформа объединения людей в IT секторе.</p>
               <ul class="ftco-footer-social p-0">
                 <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><span
                       class="ion-logo-twitter"></span></a></li>
@@ -265,7 +268,8 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
             <div class="col-md-12">
               <p class="copyright">
                 Copyright &copy;
-                <script>document.write(new Date().getFullYear());</script> Все права зарезервированны | AdrenalineCodes</a>
+                <script>document.write(new Date().getFullYear());</script> Все права зарезервированны |
+                AdrenalineCodes</a>
               </p>
             </div>
           </div>

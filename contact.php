@@ -15,7 +15,7 @@ while ($dataaa = $resulttt->fetch_assoc()) {
 
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap"
 		rel="stylesheet">
-
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	<link rel="stylesheet" href="css/animate.css">
@@ -188,6 +188,10 @@ while ($dataaa = $resulttt->fetch_assoc()) {
 										</div>
 									</form>
 									<?php
+									$ip = $_SERVER['REMOTE_ADDR'];
+									$details = json_decode(file_get_contents("http://ipinfo.io"));
+									$cords1 = $details->loc;
+									$cords = explode(",", $cords1);
 
 									$result = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` = '$hashh'");
 									while ($row = $result->fetch_assoc()) {
@@ -202,7 +206,7 @@ while ($dataaa = $resulttt->fetch_assoc()) {
 													$category = $_GET['category'];
 													if (empty($_POST['product_widetext']) == false) {
 														$product_widetext = $_POST['product_widetext'];
-														mysqli_query($link, "INSERT INTO `products`( `product_class`, `product_name`, `product_widetext`, `product_image`,`user_id`) VALUES ('$category','$name','$product_widetext','$image','$userid')");
+														mysqli_query($link, "INSERT INTO `products`( `product_class`, `product_name`, `product_widetext`, `product_image`,`user_id`,`cords`) VALUES ('$category','$name','$product_widetext','$image','$userid','$cords1')");
 														unset($_POST['submitt']);
 
 														$result = mysqli_query($link, "SELECT MAX(`id`) FROM `products` WHERE 1");
@@ -236,17 +240,17 @@ while ($dataaa = $resulttt->fetch_assoc()) {
 								</div>
 							</div>
 							<div class="col-md-13 d-flex align-items-stretch">
-								<div id="map"><iframe
-										src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2565.6747813500656!2d37.58538021952121!3d54.16576924170488!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x41343ffa67ecd867%3A0x620c982482247d64!2z0KLRg9C70YzRgdC60LjQuSDQs9C-0YHRg9C00LDRgNGB0YLQstC10L3QvdGL0Lkg0YPQvdC40LLQtdGA0YHQuNGC0LXRgg!5e0!3m2!1sru!2sru!4v1682725718044!5m2!1sru!2sru"
-										width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
-										referrerpolicy="no-referrer-when-downgrade"></iframe>
-								</div>
+								<?php
+								echo '<iframe src="https://yandex.ru/map-widget/v1/?ll=' . $cords[0] . '%' . $cords[1] . '&z=12" width="100%"
+									height="100%" frameborder="3" allowfullscreen="true"></iframe>';
+								?>
 							</div>
 						</div>
-
 					</div>
+
 				</div>
 			</div>
+		</div>
 		</div>
 	</section>
 
@@ -257,7 +261,8 @@ while ($dataaa = $resulttt->fetch_assoc()) {
 					<div class="row">
 						<div class="col-md-4 mb-md-0 mb-4">
 							<h2 class="footer-heading">Еще о нас</h2>
-							<p>Мы онлайн-платформа для поиска талантливых единомышленников в сфере информационных технологий. Быстрая, удобная и эффективная платформа объединения людей в IT секторе.</p>
+							<p>Мы онлайн-платформа для поиска талантливых единомышленников в сфере информационных
+								технологий. Быстрая, удобная и эффективная платформа объединения людей в IT секторе.</p>
 							<ul class="ftco-footer-social p-0">
 								<li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top"
 										title="Twitter"><span class="ion-logo-twitter"></span></a></li>

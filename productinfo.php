@@ -141,14 +141,21 @@ while ($dataaa = $resulttt->fetch_assoc()) {
 						?>
 					</h5>
 					<?php
+					$result = mysqli_query($link, "SELECT `cords` FROM `products` WHERE `id` LIKE '$productid'"); // картинка
+					while ($cords1 = $result->fetch_assoc()) {
+						$cords = explode(",", $cords1['cords']);
 
+					}
 					$result = mysqli_query($link, "SELECT `product_image` FROM `products` WHERE `id` LIKE '$productid'"); // картинка
 					while ($row = $result->fetch_assoc()) {
 						echo '<div class="img d-flex align-items-end ">
 						<img src="' . $row['product_image'] . '" style="
 						max-width: 200px;
 					">
-		
+					
+						<iframe src="https://yandex.ru/map-widget/v1/?ll=' . $cords[0] .'%2C'. $cords[1] . '&z=12" width="100%"
+						height="200%" frameborder="1" allowfullscreen="true"></iframe>
+					
 						</div>';
 					}
 
@@ -266,7 +273,8 @@ while ($dataaa = $resulttt->fetch_assoc()) {
 					<div class="row">
 						<div class="col-md-4 mb-md-0 mb-4">
 							<h2 class="footer-heading">Еще о нас</h2>
-							<p>Мы онлайн-платформа для поиска талантливых единомышленников в сфере информационных технологий. Быстрая, удобная и эффективная платформа объединения людей в IT секторе.</p>
+							<p>Мы онлайн-платформа для поиска талантливых единомышленников в сфере информационных
+								технологий. Быстрая, удобная и эффективная платформа объединения людей в IT секторе.</p>
 							<ul class="ftco-footer-social p-0">
 								<li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top"
 										title="Twitter"><span class="ion-logo-twitter"></span></a></li>
