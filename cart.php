@@ -83,7 +83,7 @@ include 'main_script.php';
   </nav>
   <!-- END nav -->
 
-  <section class="hero-wrap hero-wrap-2" style="background-image: url('images/logo.jpg');"
+  <section class="hero-wrap hero-wrap-2" style="background-image: url('images/logo2.png');"
     data-stellar-background-ratio="0.75">
     <div class="overlay"></div>
     <div class="container">
@@ -103,54 +103,106 @@ include 'main_script.php';
 
   <section class="ftco-section">
     <div class="container">
-      <?php
-      $result = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-      while ($data = $result->fetch_assoc()) {
-        $userid = $data['user_id'];
-        if ($userid == 1) {
-          echo '<a href="orderinfo.php" class="py-1 d-block subheading ">>Посмотреть все Проекты<</a>
-                    <span class="subheading">Последние 20 Проектов:</span>
-                    <div class="text mt-3 text-center">';
-
-          $resul = mysqli_query($link, "SELECT MAX(`order_id`) FROM `orders` WHERE 1");
-          while ($dataa = $resul->fetch_assoc()) {
-            $id = $dataa['MAX(`order_id`)'];
-            for ($i = 1; $i <= 20; $i++) {
-              $result = mysqli_query($link, "SELECT `order_id` FROM `orders` WHERE `order_id` = '$id'");
-              while ($data = $result->fetch_assoc()) {
-                $data['order_id'];
-
-                $resultt = mysqli_query($link, "SELECT `date` FROM `orders` WHERE `order_id` = '$id'");
-                while ($dataaa = $resultt->fetch_assoc()) {
-                  $date = $dataaa['date'];
-                }
-                echo '<h6 class="heading"><a href=orderinfo.php?order_id=' . $data['order_id'] . '>Проект от ' . $date . '</a></h6>';
-              }
-              $id = $id - 1;
-            }
-          }
-
-
+      <div class="text mt-3 text-center">
+        <h1 class="mb-0 bread">Мои запросы в проекты</h1>
+        <?php
+        if (mysqli_query($link, "SELECT `user_request` FROM `users` WHERE `user_hash` LIKE '$hashh'")->fetch_array() == 0) {
+          echo "Нет активных запросов";
         } else {
+          $result = mysqli_query($link, "SELECT `user_request` FROM `users` WHERE `user_hash` LIKE '$hashh'");
+          while ($data = $result->fetch_assoc()) {
+            $data['user_request'] = str_replace('[', ',', $data['user_request']);
+            $data['user_request'] = str_replace(']', ',', $data['user_request']);
+            $data['user_request'] = str_replace('0', ',', $data['user_request']);
+            $data['user_request'] = str_replace('', ',,', $data['user_request']);
 
-          echo '<div class="text mt-3 text-center">';
-          $user_idd = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-          while ($dataa = $user_idd->fetch_assoc()) {
-            $userr_id = $dataa['user_id'];
-            $product_id = mysqli_query($link, "SELECT `id` FROM `products` WHERE `user_id` = '$userr_id'");
-            while ($product_id1 = $product_id->fetch_assoc()) {
-              $product_id2 = $product_id1['id'];
+            $cart = explode(",", $data['user_request']);
+            $i = count($cart, true) - 1;
+            $ii = 1;
 
-              $date2 = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE '$product_id2'");
-              while ($date1 = $date2->fetch_assoc()) {
-                $date = $date1['product_name'];
+
+
+            while (-1 < $i) {
+              $result = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE '$cart[$i]'");
+              while ($row = $result->fetch_assoc()) {
+                echo '<div class="text mt-3 text-center">
+                <h4 class="heading"><a href=productinfo.php?id=' . $cart[$i] . '>Проект : ' . $row['product_name'] . '</a></h6>';
+                echo '
+                <form method="POST" >
+                    <input name="delete' . $i . '" class="btn btn-primary text-center" type="submit"
+                    value="Отказаться">
+                </form>
+                ';
+                if (!isset($_POST['delete' . $i . ''])) {
+                } else {
+                  $cart[$i] = "";
+                  $cartt = implode(",", $cart);
+                  mysqli_query($link, "UPDATE `users` SET `user_request`='$cartt' WHERE `user_hash` LIKE '$hashh'");
+                  echo '<script> window.location.href = "cart.php"; </script>';
+                }
               }
-              echo '<h1 class="heading"><a href=productinfo.php?id=' . $product_id2 . '>Проект : ' . $date . '</a></h6>';
+
+              $i = $i - 1;
             }
           }
         }
-      }
-      ?>
+
+
+        ?>
+        <h1 class="mb-0 bread">Личные проекты</h1>
+        <?php
+        $result = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
+        while ($data = $result->fetch_assoc()) {
+          $userid = $data['user_id'];
+          if ($userid == 1) {
+            echo '<a href="orderinfo.php" class="py-1 d-block subheading ">>Посмотреть все Проекты<</a>
+                    <span class="subheading">Последние 20 Проектов:</span>
+                    <div class="text mt-3 text-center">';
+
+            $resul = mysqli_query($link, "SELECT MAX(`order_id`) FROM `orders` WHERE 1");
+            while ($dataa = $resul->fetch_assoc()) {
+              $id = $dataa['MAX(`order_id`)'];
+              for ($i = 1; $i <= 20; $i++) {
+                $result = mysqli_query($link, "SELECT `order_id` FROM `orders` WHERE `order_id` = '$id'");
+                while ($data = $result->fetch_assoc()) {
+                  $data['order_id'];
+
+                  $resultt = mysqli_query($link, "SELECT `date` FROM `orders` WHERE `order_id` = '$id'");
+                  while ($dataaa = $resultt->fetch_assoc()) {
+                    $date = $dataaa['date'];
+                  }
+                  echo '<h4 class="heading"><a href=orderinfo.php?order_id=' . $data['order_id'] . '>Проект от ' . $date . '</a></h6>';
+                }
+                $id = $id - 1;
+              }
+            }
+
+
+          } else {
+
+            echo '<div class="text mt-3 text-center">';
+            $user_idd = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
+            while ($dataa = $user_idd->fetch_assoc()) {
+              $userr_id = $dataa['user_id'];
+              $product_id = mysqli_query($link, "SELECT `id` FROM `products` WHERE `user_id` = '$userr_id'");
+              while ($product_id1 = $product_id->fetch_assoc()) {
+                $product_id2 = $product_id1['id'];
+
+                $date2 = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE '$product_id2'");
+                while ($date1 = $date2->fetch_assoc()) {
+                  $date = $date1['product_name'];
+                }
+                echo '<h4 class="heading"><a href=productinfo.php?id=' . $product_id2 . '>Проект : ' . $date . '</a></h6>';
+              }
+            }
+          }
+        }
+
+
+
+
+
+        ?>
 
 
 
@@ -195,7 +247,6 @@ include 'main_script.php';
                       <h2 class="footer-heading">Меню</h2>
                       <ul class="list-unstyled">
                         <li><a href="index.html" class="py-1 d-block">Главная</a></li>
-                        <li><a href="team.html" class="py-1 d-block">Мои 11</a></li>
                         <li><a href="cart.html" class="py-1 d-block">Мои проекты</a></li>
                       </ul>
                     </div>

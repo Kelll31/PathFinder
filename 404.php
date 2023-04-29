@@ -36,7 +36,7 @@
             "@type": "Organization",
             "name": "PathFinder",
             "url": "https://tparf.ru",
-            "logo": "https://tparf.ru/static/logo.jpg",
+            "logo": "https://tparf.ru/static/logo2.png",
             "contactPoint": {
                 "@type": "ContactPoint",
                 "telephone": "+79645554300",
@@ -67,7 +67,7 @@
 
                 <!-- logo image -->
                 <a href="main.php" class="col-auto mr-lg-2 mr-auto order-0 logo">
-                    <img src="images/logo.jpg" alt="PathFinder" class="logo-icon header-logo-icon">
+                    <img src="images/logo2.png" alt="PathFinder" class="logo-icon header-logo-icon">
                 </a>
 
                 <!-- logo image with bottom subtitle-->

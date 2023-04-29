@@ -74,7 +74,7 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav mr-auto topmenu">
           <li class="nav-item"><a href="index.php" class="nav-link">Главная</a></li>
-          <li class="nav-item"><a href="shop.php" class="nav-link">Все проекты </a></li>
+          <li class="nav-item"><a href="shop.php?category=0&page=1" class="nav-link">Все проекты </a></li>
           <li class="nav-item"><a href="cart.php" class="nav-link">Мои проекты</a></li>
           <li class="nav-item"><a href="contact.php" class="nav-link">Создать проект</a></li>
           
@@ -85,7 +85,7 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
   </nav>
   <!-- END nav -->
 
-  <section class="hero-wrap hero-wrap-2" style="background-image: url('images/logo.jpg');"
+  <section class="hero-wrap hero-wrap-2" style="background-image: url('images/logo2.png');"
     data-stellar-background-ratio="0.75">
     <div class="overlay"></div>
     <div class="container">

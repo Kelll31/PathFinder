@@ -93,7 +93,7 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
   </nav>
   <!-- END nav -->
 
-  <section class="hero-wrap hero-wrap-2" style="background-image: url('images/logo.jpg');"
+  <section class="hero-wrap hero-wrap-2" style="background-image: url('images/logo2.png');"
     data-stellar-background-ratio="0.75">
     <div class="overlay"></div>
     <div class="container">

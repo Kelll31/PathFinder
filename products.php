@@ -97,7 +97,7 @@
                         </a>
                     </li>
                     <li class="w-100">
-                        <a href="shop.php" class="d-flex align-items-center py-2 px-3 link">
+                        <a href="shop.php?category=0&page=1" class="d-flex align-items-center py-2 px-3 link">
                             <div class="flex-fill link-title">В Все проекты </div>
                             <div class="d-flex rounded link-icon">
                                 <svg class="icon m-auto" width="24" height="24" fill="currentColor">

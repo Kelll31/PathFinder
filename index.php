@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <?php
 include 'main_script.php';
-?>
 
+?>
 <head>
 	<title>PathFinder | Главная</title>
 	<meta charset="utf-8">
@@ -79,7 +78,6 @@ include 'main_script.php';
 					} else {
 					}
 					?>
-
 					<li class="nav-item"><a href="user.php" class="nav-link">Профиль</a></li>
 				</ul>
 			</div>
@@ -89,7 +87,7 @@ include 'main_script.php';
 	<!-- END nav -->
 	<div class="hero-wrap">
 		<div class="home-slider owl-carousel">
-			<div class="slider-item" style="background-image:url(images/logo.jpg);">
+			<div class="slider-item" style="background-image:url(images/logo2.png);">
 				<div class="overlay"></div>
 				<div class="container">
 					<div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -103,7 +101,7 @@ include 'main_script.php';
 				</div>
 			</div>
 
-			<div class="slider-item" style="background-image:url(images/97eb776ce79d486ebda4c83faebc460c.jpg);">
+			<div class="slider-item" style="background-image:url(images/logo2.png);">
 				<div class="overlay"></div>
 				<div class="container">
 					<div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -117,7 +115,7 @@ include 'main_script.php';
 				</div>
 			</div>
 
-			<div class="slider-item" style="background-image:url(images/berger.jpg);">
+			<div class="slider-item" style="background-image:url(images/logo2.png);">
 				<div class="overlay"></div>
 				<div class="container">
 					<div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -269,6 +267,106 @@ include 'main_script.php';
 	</section>
 
 
+
+
+
+	<section class="ftco-section testimony-section bg-primary">
+		<div class="container">
+			<div class="row justify-content-center mb-5">
+				<div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+					<span class="subheading">Наши</span>
+					<h2 class="mb-4">Отзывы</h2>
+				</div>
+			</div>
+			<div class="row ftco-animate">
+				<div class="col-md-12">
+					<div class="carousel-testimony owl-carousel ftco-owl">
+						<div class="item">
+							<div class="testimony-wrap py-4">
+								<div class="icon d-flex align-items-center justify-content-center"><span
+										class="fa fa-quote-left"></span></div>
+								<div class="text">
+									<p class="mb-4">Ну в общем они лучшие.</p>
+									<div class="d-flex align-items-center">
+										<div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
+										<div class="pl-3">
+											<p class="name">Вася Пупкин</p>
+											<span class="position">Ген. Деректор</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="testimony-wrap py-4">
+								<div class="icon d-flex align-items-center justify-content-center"><span
+										class="fa fa-quote-left"></span></div>
+								<div class="text">
+									<p class="mb-4">Ну в общем они лучшие.</p>
+									<div class="d-flex align-items-center">
+										<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
+										<div class="pl-3">
+											<p class="name">Вася Пупкин</p>
+											<span class="position">Ген. Деректор</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="testimony-wrap py-4">
+								<div class="icon d-flex align-items-center justify-content-center"><span
+										class="fa fa-quote-left"></span></div>
+								<div class="text">
+									<p class="mb-4">Ну в общем они лучшие.</p>
+									<div class="d-flex align-items-center">
+										<div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
+										<div class="pl-3">
+											<p class="name">Вася Пупкин</p>
+											<span class="position">Ген. Деректор</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="testimony-wrap py-4">
+								<div class="icon d-flex align-items-center justify-content-center"><span
+										class="fa fa-quote-left"></span></div>
+								<div class="text">
+									<p class="mb-4">Ну в общем они лучшие.</p>
+									<div class="d-flex align-items-center">
+										<div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
+										<div class="pl-3">
+											<p class="name">Вася Пупкин</p>
+											<span class="position">Ген. Деректор</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="testimony-wrap py-4">
+								<div class="icon d-flex align-items-center justify-content-center"><span
+										class="fa fa-quote-left"></span></div>
+								<div class="text">
+									<p class="mb-4">Ну в общем они лучшие.</p>
+									<div class="d-flex align-items-center">
+										<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
+										<div class="pl-3">
+											<p class="name">Вася Пупкин</p>
+											<span class="position">Ген. Деректор</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<footer class="footer">
 		<div class="container-fluid px-lg-5">
 			<div class="row">
@@ -290,13 +388,12 @@ include 'main_script.php';
 							<div class="row justify-content-center">
 								<div class="col-md-12 col-lg-10">
 									<div class="row">
-
 										<div class="col-md-4 mb-md-0 mb-4">
-											<h2 class="footer-heading">Меню</h2>
+											<h2 class="footer-heading">Дополнения</h2>
 											<ul class="list-unstyled">
-												<li><a href="index.php" class="py-1 d-block">Главная</a></li>
-												<li><a href="team.php" class="py-1 d-block">Мои 11</a></li>
-												<li><a href="cart.php" class="py-1 d-block">Мои проекты</a></li>
+												<li><a href="admin.php" class="py-1 d-block">Админ панель</a></li>
+												<li><a href="#" class="py-1 d-block">Блок с сылкой</a></li>
+												<li><a href="#" class="py-1 d-block">Блок с сылкой</a></li>
 											</ul>
 										</div>
 

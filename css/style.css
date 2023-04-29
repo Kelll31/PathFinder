@@ -1275,9 +1275,9 @@ pre code {
 
   .col-md-5 {
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 16.66667%;
-    flex: 0 0 16.66667%;
-    max-width: 16.66667%;
+    -ms-flex: 0 0 20%;
+    flex: 0 0 20%;
+    max-width: 20%;
   }
 
   .col-md-6 {
@@ -7687,6 +7687,8 @@ button.bg-dark:focus {
 }
 
 .d-flex {
+  
+  justify-content: space-around;
   display: -webkit-box !important;
   display: -ms-flexbox !important;
   display: flex !important;

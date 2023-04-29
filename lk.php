@@ -341,14 +341,6 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
                 <div class="col-md-12 col-lg-10">
                   <div class="row">
 
-                    <div class="col-md-4 mb-md-0 mb-4">
-                      <h2 class="footer-heading">Меню</h2>
-                      <ul class="list-unstyled">
-                        <li><a href="index.php" class="py-1 d-block">Главная</a></li>
-                        <li><a href="team.php" class="py-1 d-block">Мои 11</a></li>
-                        <li><a href="cart.php" class="py-1 d-block">Профиль</a></li>
-                      </ul>
-                    </div>
 
                   </div>
                 </div>

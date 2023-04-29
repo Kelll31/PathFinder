@@ -68,7 +68,8 @@ include 'main_script.php';
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav mr-auto topmenu">
 					<li class="nav-item"><a href="index.php" class="nav-link">Главная</a></li>
-					<li class="nav-item active"><a href="shop.php" class="nav-link">Все проекты </a></li>
+					<li class="nav-item active"><a href="shop.php?category=0&page=1" class="nav-link">Все проекты </a>
+					</li>
 					<?php
 					if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'")->fetch_array() != 0) {
 						echo '
@@ -77,6 +78,7 @@ include 'main_script.php';
 					} else {
 					}
 					?>
+
 					<li class="nav-item"><a href="user.php" class="nav-link">Профиль</a></li>
 				</ul>
 			</div>
@@ -84,7 +86,7 @@ include 'main_script.php';
 	</nav>
 	<!-- END nav -->
 
-	<section class="hero-wrap hero-wrap-2" style="background-image: url('images/logo.jpg');"
+	<section class="hero-wrap hero-wrap-2" style="background-image: url('images/logo2.png');"
 		data-stellar-background-ratio="0.75">
 		<div class="overlay"></div>
 		<div class="container">
@@ -213,12 +215,11 @@ include 'main_script.php';
 								</div>
 							</form>
 						</div>
-						
 
-						
+
 					</div>
 
-					<div class="row d-flex">
+					<div class="row d-flex" style="justify-content: space-evenly;">
 
 						<?php
 
@@ -265,11 +266,8 @@ include 'main_script.php';
 												<div>';
 
 
-										$resulttt = mysqli_query($link, "SELECT `product_price` FROM `products` WHERE `id` LIKE '$iddds'"); // цена
-										while ($dataaa = $resulttt->fetch_assoc()) {
-											echo $dataaa['product_price'];
-										}
-										echo '€
+
+										echo '
 																</div>
 															</div>
 														</div>
@@ -313,11 +311,7 @@ include 'main_script.php';
 										</div>
 												<div>';
 									}
-									$resultt = mysqli_query($link, "SELECT `product_price` FROM `products` WHERE `id` LIKE '$maxid'AND `product_class` LIKE '$category'"); // цена
-									while ($roww = $resultt->fetch_assoc()) {
-										echo $roww['product_price'];
-									}
-									echo '€
+									echo '
 																</div>
 															</div>
 														</div>

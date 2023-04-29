@@ -225,56 +225,13 @@ include 'main_script.php';
 							</div>
 							<div class="col-md-13 d-flex align-items-stretch">
 								<div id="map"><iframe
-										src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2286.255894482434!2d82.90836991588144!3d55.038732080368504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x42dfe5cbb25ed257%3A0xd2242b8b15e0e446!2z0YPQuy4g0J3QsNGA0YvQvNGB0LrQsNGPLCA5LCDQndC-0LLQvtGB0LjQsdC40YDRgdC6LCDQndC-0LLQvtGB0LjQsdC40YDRgdC60LDRjyDQvtCx0LsuLCA2MzAxMzI!5e0!3m2!1sru!2sru!4v1669116565289!5m2!1sru!2sru"
+										src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2565.6747813500656!2d37.58538021952121!3d54.16576924170488!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x41343ffa67ecd867%3A0x620c982482247d64!2z0KLRg9C70YzRgdC60LjQuSDQs9C-0YHRg9C00LDRgNGB0YLQstC10L3QvdGL0Lkg0YPQvdC40LLQtdGA0YHQuNGC0LXRgg!5e0!3m2!1sru!2sru!4v1682725718044!5m2!1sru!2sru"
 										width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
 										referrerpolicy="no-referrer-when-downgrade"></iframe>
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-3">
-								<div class="dbox w-100 text-center">
-									<div class="icon d-flex align-items-center justify-content-center">
-										<span class="fa fa-map-marker"></span>
-									</div>
-									<div class="text">
-										<p><span>Адрес:</span> 630132, РОССИЯ, Новосибирская обл., г. Новосибирск, улица
-											Нарымская, д. 9, оф.89</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="dbox w-100 text-center">
-									<div class="icon d-flex align-items-center justify-content-center">
-										<span class="fa fa-phone"></span>
-									</div>
-									<div class="text">
-										<p><span>Телефон:</span> <a href="tel://1234567920">+7 (964) 555-43-00</a></p>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="dbox w-100 text-center">
-									<div class="icon d-flex align-items-center justify-content-center">
-										<span class="fa fa-paper-plane"></span>
-									</div>
-									<div class="text">
-										<p><span>Email:</span> <a href="mailto:tpa@tparf.ru">tpa@tparf.ru</a></p>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-3">
-								<div class="dbox w-100 text-center">
-									<div class="icon d-flex align-items-center justify-content-center">
-										<span class="fa fa-globe"></span>
-									</div>
-									<div class="text">
-										<p><span>ИНН:</span> 5407972111</p>
-										<p><span>ОГРН:</span> 1185476083550 </p>
-									</div>
-								</div>
-							</div>
-						</div>
+
 					</div>
 				</div>
 			</div>
@@ -302,15 +259,6 @@ include 'main_script.php';
 							<div class="row justify-content-center">
 								<div class="col-md-12 col-lg-10">
 									<div class="row">
-
-										<div class="col-md-4 mb-md-0 mb-4">
-											<h2 class="footer-heading">Меню</h2>
-											<ul class="list-unstyled">
-												<li><a href="index.php" class="py-1 d-block">Главная</a></li>
-												<li><a href="team.php" class="py-1 d-block">Мои 11</a></li>
-												<li><a href="cart.php" class="py-1 d-block">Мои проекты</a></li>
-											</ul>
-										</div>
 
 									</div>
 								</div>
