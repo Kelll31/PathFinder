@@ -260,7 +260,7 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
           <div class="row">
             <div class="col-md-4 mb-md-0 mb-4">
               <h2 class="footer-heading">Еще о нас</h2>
-              <p>Средний текст</p>
+              <p>Мы онлайн-платформа для поиска талантливых единомышленников в сфере информационных технологий. Быстрая, удобная и эффективная платформа объединения людей в IT секторе.</p>
               <ul class="ftco-footer-social p-0">
                 <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><span
                       class="ion-logo-twitter"></span></a></li>
@@ -293,7 +293,7 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
             <div class="col-md-12">
               <p class="copyright">
                 Copyright &copy;
-                <script>document.write(new Date().getFullYear());</script> Все права зарезервированны | PathFinder.</a>
+                <script>document.write(new Date().getFullYear());</script> Все права зарезервированны | AdrenalineCodes</a>
               </p>
             </div>
           </div>
