@@ -63,7 +63,7 @@
 			</form>
 			<?php
 			if (isset($_GET['search'])) {
-				echo '<script> window.location.href = "shop.php?search='.$_GET['search'].'"; </script>';
+				echo '<script> window.location.href = "shop.php?search=' . $_GET['search'] . '"; </script>';
 			}
 			?>
 			<div class="collapse navbar-collapse" id="ftco-nav">
@@ -307,6 +307,12 @@
 
 	<section class="ftco-section">
 		<div class="container">
+
+
+
+
+
+
 			<div class="row">
 				<div class="col-md-8">
 					<h5 class="font-weight-bold">Почему люди выбирают нашу компанию?</h5>
@@ -327,7 +333,8 @@
 					<div class="row">
 						<div class="col-md-4 mb-md-0 mb-4">
 							<h2 class="footer-heading">Еще о нас</h2>
-							<p>Мы онлайн-платформа для поиска талантливых единомышленников в сфере информационных технологий. Быстрая, удобная и эффективная платформа объединения людей в IT секторе.</p>
+							<p>Мы онлайн-платформа для поиска талантливых единомышленников в сфере информационных
+								технологий. Быстрая, удобная и эффективная платформа объединения людей в IT секторе.</p>
 							<ul class="ftco-footer-social p-0">
 								<li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top"
 										title="Twitter"><span class="ion-logo-twitter"></span></a></li>
@@ -341,7 +348,7 @@
 							<div class="row justify-content-center">
 								<div class="col-md-12 col-lg-10">
 									<div class="row">
-										
+
 										<div class="col-md-4 mb-md-0 mb-4">
 											<h2 class="footer-heading">Меню</h2>
 											<ul class="list-unstyled">

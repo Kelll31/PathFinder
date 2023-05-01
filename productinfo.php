@@ -119,27 +119,91 @@ while ($dataaa = $resulttt->fetch_assoc()) {
 
 	<section class="ftco-section">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-4">
-					<h5 class="font-weight-bold">
-						<?php
+			<div class="text-center">
+				<?php
+				if (!isset($_GET['id'])) {
+					echo '<script> window.location.href = "shop.php?category=0&page=1"; </script>';
+				} else {
+					$productid = $_GET['id'];
+					$resulttt = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE'$productid'"); // имя
+					while ($rowww = $resulttt->fetch_assoc()) {
+						echo '
+						<div class="form-group row no-gutters">
+					<div class="col-md-7" style="height: 50px;">
+					<h5 class="font-weight-bold">' . $rowww['product_name'] . '
+					</div>
 
+					<div class="class=" col-md-13 text-center heading-section heading-section-white ftco-animatefadeInUp ftco-animated>
+';
+						$prod_id = $_GET['id'];
 
-
-						if (!isset($_GET['id'])) {
-							echo '<script> window.location.href = "shop.php?category=0&page=1"; </script>';
-						} else {
-							$productid = $_GET['id'];
-							$resulttt = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE
-							'$productid'"); // имя
-							while ($rowww = $resulttt->fetch_assoc()) {
-								echo $rowww['product_name'];
-							}
+						$prod_user_id = mysqli_query($link, "SELECT `user_id` FROM `products` WHERE `id` LIKE '$prod_id'");
+						while ($prod_user_id1 = $prod_user_id->fetch_assoc()) {
+							$prod_user_id2 = $prod_user_id1['user_id'];
 						}
+						if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'")->fetch_array() != 0) {
+							if ($prod_user_id2 != $userid) {
 
 
-						?>
-					</h5>
+
+								$result = mysqli_query($link, "SELECT `user_request` FROM `users` WHERE `user_hash` LIKE '$hashh'");
+								while ($data = $result->fetch_assoc()) {
+									$data['user_request'] = str_replace('[', ',', $data['user_request']);
+									$data['user_request'] = str_replace(']', ',', $data['user_request']);
+									$data['user_request'] = str_replace('0', ',', $data['user_request']);
+									$data['user_request'] = str_replace('', ',,', $data['user_request']);
+									$cart = explode(",", $data['user_request']);
+
+
+									if (isset($_POST['buy' . $_GET['id']])) {
+										array_push($cart, $_GET['id']);
+										sort($cart);
+										$cartt = implode(",", $cart);
+										mysqli_query($link, "UPDATE `users` SET `user_request`='$cartt' WHERE `user_hash` LIKE '$hashh'");
+										echo '<script> window.location.href = "cart.php"; </script>';
+									}
+									if (isset($_POST['buyy' . $_GET['id']])) {
+										array_push($cart, $_GET['id']);
+										sort($cart);
+										$cartt = implode(",", $cart);
+										mysqli_query($link, "UPDATE `users` SET `user_request`='$cartt' WHERE `user_hash` LIKE '$hashh'");
+										echo '<script> window.location.href = "cart.php"; </script>';
+									}
+								}
+								$resu = mysqli_query($link, "SELECT `user_hash` FROM `users` WHERE `user_hash` LIKE '$hashh'");
+								while ($dat = $resu->fetch_assoc()) {
+									echo '
+									<form method="POST">
+									
+										<input name="buy' . $_GET['id'] . '" class="btn btn-primary text-center " style="padding: 5px 16px;" type="submit"
+											value="Хочу участвовать">
+									</form>';
+								}
+							} else {
+								echo '<input name="" class="btn btn-primary text-center " style="padding: 5px 16px;" type="submit"
+								value="Вы владелец проекта">';
+								
+							}
+
+
+							echo '
+					</div>
+				</div>
+						
+						
+						
+						
+						';
+						}
+					}
+				}
+				?>
+
+			</div>
+			<div class="row">
+				<div class="col-md-4" style="flex: 0 0 30%;max-width: 30%;">
+
+
 					<?php
 					$result = mysqli_query($link, "SELECT `cords` FROM `products` WHERE `id` LIKE '$productid'"); // картинка
 					while ($cords1 = $result->fetch_assoc()) {
@@ -149,12 +213,10 @@ while ($dataaa = $resulttt->fetch_assoc()) {
 					$result = mysqli_query($link, "SELECT `product_image` FROM `products` WHERE `id` LIKE '$productid'"); // картинка
 					while ($row = $result->fetch_assoc()) {
 						echo '<div class="img d-flex align-items-end ">
-						<img src="' . $row['product_image'] . '" style="
-						max-width: 200px;
-					">
+						<img src="' . $row['product_image'] . '" style="width: 100%;">
 					
-						<iframe src="https://yandex.ru/map-widget/v1/?ll=' . $cords[0] .'%2C'. $cords[1] . '&z=12" width="100%"
-						height="200%" frameborder="1" allowfullscreen="true"></iframe>
+						<iframe src="https://yandex.ru/map-widget/v1/?ll=' . $cords[0] . '%2C' . $cords[1] . '&z=12" width="100%"
+						height="300px" frameborder="1" allowfullscreen="true"></iframe>
 					
 						</div>';
 					}
@@ -163,19 +225,104 @@ while ($dataaa = $resulttt->fetch_assoc()) {
 
 
 				</div>
-				<div class="col-md-8 text-center">
+				<div class="col-md-8 text-center" style="flex: 0 0 70%;max-width: 70%;">
 					<?php
-					$result = mysqli_query($link, "SELECT `product_widetext` FROM `products` WHERE `id` LIKE '$productid'"); // картинка
+					$result = mysqli_query($link, "SELECT `product_widetext` FROM `products` WHERE `id` LIKE '$productid'"); // описание
 					while ($row = $result->fetch_assoc()) {
 						echo '<p> ' . $row['product_widetext'] . '</p>';
 					}
+
+
 					?>
 
 				</div>
 			</div>
 			<div class="col-md-12">
 				<div class="form-group" style="margin-top: 10px;">
+
+
+
 					<?php
+
+					if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'")->fetch_array() != 0) {
+						$product_id = $_GET['id'];
+						$user_id = $userid;
+						echo '<h5 class="font-weight-bold">Комментарии:</h5>';
+						$result_set = mysqli_query($link, "SELECT * FROM `comments` WHERE `product_id`='$product_id'"); //Вытаскиваем все комментарии для данной страницы
+						while ($row = $result_set->fetch_assoc()) {
+							$coment_user_id = $row['user_id'];
+							$coment_user = $row['comment'];
+							$i = 0;
+
+
+							$coment_id = $row['comment_id'];
+							$date22 = mysqli_query($link, "SELECT `user_name` FROM `users` WHERE `user_id` LIKE '$coment_user_id'");
+							while ($date11 = $date22->fetch_assoc()) {
+								$user_name = $date11['user_name'];
+								if ($userid == 1) {
+									echo '
+										<form method="POST">
+											<div class=" row no-gutters">
+												<div class="col-md-7" style="height: 50px;">
+												' . $user_name . ': ';
+
+									if (strlen($coment_user) > 100) {
+										$com = str_split($coment_user, 100);
+										$strip = count(str_split($coment_user, 100));
+										while ($i != $strip) {
+											echo $com[$i] . '</br>';
+											$i = $i + 1;
+										}
+										echo '</div>';
+									} else {
+										echo $coment_user;
+									}
+									echo '
+												</div>
+
+												<div class="col-md-13 text-center heading-section heading-section-white ftco-animate fadeInUp ftco-animated">
+													<input name="deletecoment' . $coment_id . '" class="btn btn-primary text-center "  type="submit"value="Удалить" style="padding: 5px 16px;">
+												</div>
+											</div>
+										</form>';
+									if (isset($_POST['deletecoment' . $coment_id])) {
+										mysqli_query($link, "DELETE FROM `comments` WHERE `comment_id` = '$coment_id'");
+										echo '<script> window.location.href = "productinfo.php?id=' . $product_id . '"; </script>';
+									}
+								} else {
+									echo $user_name . ': ' . $coment_user;
+									echo "<br />";
+								}
+							}
+
+
+
+						}
+
+						echo '
+								<form method="POST">
+									<div class=" row no-gutters" style="justify-content: space-between;">
+										<div class="col-md-7" style="height: 50px;">
+											<textarea name="text_comment" id="" cols="30" rows="3" class="form-control"
+												placeholder="Написать комментарий"></textarea>
+										</div>
+
+										<div class="class="col-md-13 text-center heading-section heading-section-white ftco-animate fadeInUp ftco-animated">
+											<input name="comment" class="btn btn-primary text-center "  type="submit"value="Отправить">
+										</div>
+									</div>
+								</form>';
+
+
+						if (isset($_POST['comment'])) {
+							$text_comment = $_POST["text_comment"];
+							mysqli_query($link, "INSERT INTO `comments`(`user_id`, `product_id`, `comment`) VALUES ('$user_id','$product_id','$text_comment')");
+							echo '<script> window.location.href = "productinfo.php?id=' . $product_id . '"; </script>';
+						}
+
+
+					}
+
 					$prod_id = $_GET['id'];
 
 					$prod_user_id = mysqli_query($link, "SELECT `user_id` FROM `products` WHERE `id` LIKE '$prod_id'");
@@ -193,7 +340,6 @@ while ($dataaa = $resulttt->fetch_assoc()) {
 
 
 						if ($prod_user_id2 == $userid) {
-							echo '<input name="buy' . $_GET['id'] . '" class="btn btn-primary text-center form-control submit px-3"	value="Вы владелец проекта">';
 							echo '<h4 class="heading text-center">Запросы на участие</h4>';
 
 							$produuuuct = $_GET['id'];
@@ -222,43 +368,8 @@ while ($dataaa = $resulttt->fetch_assoc()) {
 
 							}
 
-						} else {
-
-
-
-							$result = mysqli_query($link, "SELECT `user_request` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-							while ($data = $result->fetch_assoc()) {
-								$data['user_request'] = str_replace('[', ',', $data['user_request']);
-								$data['user_request'] = str_replace(']', ',', $data['user_request']);
-								$data['user_request'] = str_replace('0', ',', $data['user_request']);
-								$data['user_request'] = str_replace('', ',,', $data['user_request']);
-								$cart = explode(",", $data['user_request']);
-
-
-								if (!isset($_POST['buy' . $_GET['id'] . ''])) {
-								} else {
-
-									array_push($cart, $_GET['id']);
-									sort($cart);
-									$cartt = implode(",", $cart);
-									mysqli_query($link, "UPDATE `users` SET `user_request`='$cartt' WHERE `user_hash` LIKE '$hashh'");
-									echo '<script> window.location.href = "cart.php"; </script>';
-								}
-							}
-							$resu = mysqli_query($link, "SELECT `user_hash` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-							while ($dat = $resu->fetch_assoc()) {
-								echo '
-									<form method="POST">
-										<input name="buy' . $_GET['id'] . '" class="btn btn-primary text-center form-control submit px-3" type="submit"
-											value="Хочу участвовать">
-									</form>';
-							}
 						}
 					}
-
-
-
-
 					?>
 				</div>
 			</div>

@@ -239,253 +239,256 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
                   </div>
                   ';
             }
-            ?>
 
-
-            <div class="row no-gutters mb-5">
+            if (!isset($_GET['openid'])) {
+              echo ' <div class="row no-gutters mb-5">
               <div class="col-md-7">
                 <div class="contact-wrap w-100 p-md-5 p-4">
+';
 
-                  <?php
-                  $result = mysqli_query($link, "SELECT `user_name` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-                  while ($row = $result->fetch_assoc()) {
-                    echo '<h3 class="mb-4">Здравствуйте,  ' . $row['user_name'] . '!</h3>';
-                  }
+              $result = mysqli_query($link, "SELECT `user_name` FROM `users` WHERE `user_hash` LIKE '$hashh'");
+              while ($row = $result->fetch_assoc()) {
+                echo '<h3 class="mb-4">Здравствуйте,  ' . $row['user_name'] . '!</h3>';
+              }
 
-                  $resulttt = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-                  while ($dataaa = $resulttt->fetch_assoc()) {
-                    $userid = $dataaa['user_id'];
-                    if ($userid == 1) {
-                      echo 'Вы вошли как администратор';
+              $resulttt = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
+              while ($dataaa = $resulttt->fetch_assoc()) {
+                $userid = $dataaa['user_id'];
+                if ($userid == 1) {
+                  echo 'Вы вошли как администратор';
 
-                    }
-                  }
-                  ?>
-                  <div id="form-message-warning" class="mb-4"></div>
-                  <div id="form-message-success" class="mb-4">
+                }
+              }
+
+              echo '
+            <div id="form-message-warning" class="mb-4"></div>
+            <div id="form-message-success" class="mb-4">
+            </div>
+
+            <form method="POST" id="contactForm" name="contactForm" class="contactForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="label" for="name">Изменить пароль</label>
+                    <input name="pass1" type="pass1" class="form-control" placeholder="Новый пароль">
                   </div>
-
-                  <form method="POST" id="contactForm" name="contactForm" class="contactForm">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="label" for="name">Изменить пароль</label>
-                          <input name="pass1" type="pass1" class="form-control" placeholder="Новый пароль">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="label" for="name">Подтвердите пароль</label>
-                          <input name="pass2" type="pass2" class="form-control" placeholder="Подтвердите пароль">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="label" for="name">Изменить Email</label>
-                          <input name="Email1" type="Email1" class="form-control" placeholder="Новый Email">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="label" for="name">Подтвердите Email</label>
-                          <input name="Email2" type="Email2" class="form-control" placeholder="Подтвердите Email">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="label" for="name">Изменить номер телефона</label>
-                          <input name="phone" type="phone" class="form-control" placeholder="Ваш новый номер">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <?php
-                          $vision2 = mysqli_query($link, "SELECT `vision` FROM `users` WHERE `user_id` LIKE '$user_id'");
-                          while ($vision1 = $vision2->fetch_assoc()) {
-                            $vision = $vision1['vision'];
-                          }
-                          if ($vision == 1) {
-                            echo '<input name="hidephone" class="btn btn-primary" type="submit" value="Скрыть номер"
-                            style="margin-bottom: 0px;margin-top: 35px;">';
-                          } else {
-                            echo '<input name="showphone" class="btn btn-primary" type="submit" value="Открыть номер"
-                            style="margin-bottom: 0px;margin-top: 35px;">';
-                          }
-                          if (isset($_POST['hidephone'])) {
-                            mysqli_query($link, "UPDATE `users` SET `vision`='0' WHERE `user_id` LIKE '$user_id'");
-                            echo '<script> window.location.href = "lk.php"; </script>';
-                          }
-                          if (isset($_POST['showphone'])) {
-                            mysqli_query($link, "UPDATE `users` SET `vision`='1' WHERE `user_id` LIKE '$user_id'");
-                            echo '<script> window.location.href = "lk.php"; </script>';
-                          }
-
-                          ?>
-
-
-                          <div class="submitting"></div>
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="label" for="name">О себе</label>
-                          <?php
-                          $date2 = mysqli_query($link, "SELECT `user_about` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-                          while ($date1 = $date2->fetch_assoc()) {
-                            $date = $date1['user_about'];
-                            echo '<textarea id="" cols="30" rows="3" class="form-control" <input name="about" type="about" class="form-control" placeholder="' . $date . '"></textarea>';
-                          }
-                          ?>
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <input name="submitt" class="btn btn-primary" type="submit" value="Подтвердить"
-                            style="margin-bottom: 0px;margin-top: 15px;">
-                          <div class="submitting"></div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <?php
-                    if (isset($_POST['submitt'])) {
-                      if (empty($_POST['pass1']) == false) {
-                        $pass1 = $_POST['pass1'];
-                      } else {
-                        $pass1 = 81237621378123;
-                      }
-                      if (empty($_POST['pass2']) == false) {
-                        $pass2 = $_POST['pass2'];
-                      } else {
-                        $pass2 = 97655312376244;
-                      }
-                      if (empty($_POST['Email1']) == false) {
-                        $mail1 = $_POST['Email1'];
-                      } else {
-                        $mail1 = 81237621378123;
-                      }
-                      if (empty($_POST['Email2']) == false) {
-                        $mail2 = $_POST['Email2'];
-                      } else {
-                        $mail2 = 97655312376244;
-                      }
-                      if (empty($_POST['phone']) == false) {
-                        $phone = $_POST['phone'];
-                      } else {
-                        $phone = 97655312376244;
-                      }
-                      if (empty($_POST['about']) == false) {
-                        $about = $_POST['about'];
-                      } else {
-                        $about = 97655312376244;
-                      }
-
-
-                      if (empty($_POST['pass1']) == false and empty($_POST['pass2']) == false) {
-                        if ($pass1 == $pass2) {
-                          mysqli_query($link, "UPDATE `users` SET `user_password`='$pass2' WHERE  `user_hash` LIKE '$hashh'");
-                          echo "Пароль успешно изменен </br>";
-                        } else {
-                          echo "Пароли не совпадают </br>";
-                        }
-                      }
-                      if (filter_var($mail1, FILTER_VALIDATE_EMAIL) and filter_var($mail2, FILTER_VALIDATE_EMAIL)) {
-
-
-                        if (empty($_POST['Email1']) == false and empty($_POST['Email2']) == false) {
-                          if ($mail1 == $mail2) {
-                            mysqli_query($link, "UPDATE `users` SET `user_mail`='$mail2' WHERE  `user_hash` LIKE '$hashh'");
-                            echo "Email успешно изменен </br>";
-                          } else {
-                            echo "Email не совпадают </br>";
-                          }
-                        }
-                      } else {
-                        echo "Email указан не правильно</br>";
-                      }
-                      if (empty($_POST['phone']) == false) {
-                        mysqli_query($link, "UPDATE `users` SET `user_phone`='$phone' WHERE  `user_hash` LIKE '$hashh'");
-                        echo "Номер телефона успешно изменен </br>";
-                      }
-                      if (empty($_POST['about']) == false) {
-                        mysqli_query($link, "UPDATE `users` SET `user_about`='$about' WHERE  `user_hash` LIKE '$hashh'");
-                        echo "Описание успешно изменено </br>";
-                      }
-                      echo '<script> window.location.href = "lk.php"; </script>';
-                    }
-                    if (isset($_POST['exit'])) {
-                      echo '<script> window.location.href = "user.php"; </script>';
-                      mysqli_query($link, "UPDATE `users` SET `user_hash`='0'WHERE `user_hash` LIKE '$hashh'");
-
-                    }
-
-                    ?>
                 </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="label" for="name">Подтвердите пароль</label>
+                    <input name="pass2" type="pass2" class="form-control" placeholder="Подтвердите пароль">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="label" for="name">Изменить Email</label>
+                    <input name="Email1" type="Email1" class="form-control" placeholder="Новый Email">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="label" for="name">Подтвердите Email</label>
+                    <input name="Email2" type="Email2" class="form-control" placeholder="Подтвердите Email">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="label" for="name">Изменить номер телефона</label>
+                    <input name="phone" type="phone" class="form-control" placeholder="Ваш новый номер">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    ';
+              $vision2 = mysqli_query($link, "SELECT `vision` FROM `users` WHERE `user_id` LIKE '$user_id'");
+              while ($vision1 = $vision2->fetch_assoc()) {
+                $vision = $vision1['vision'];
+              }
+              if ($vision == 1) {
+                echo '<input name="hidephone" class="btn btn-primary" type="submit" value="Скрыть номер"
+                            style="margin-bottom: 0px;margin-top: 35px;">';
+              } else {
+                echo '<input name="showphone" class="btn btn-primary" type="submit" value="Открыть номер"
+                            style="margin-bottom: 0px;margin-top: 35px;">';
+              }
+              if (isset($_POST['hidephone'])) {
+                mysqli_query($link, "UPDATE `users` SET `vision`='0' WHERE `user_id` LIKE '$user_id'");
+                echo '<script> window.location.href = "lk.php"; </script>';
+              }
+              if (isset($_POST['showphone'])) {
+                mysqli_query($link, "UPDATE `users` SET `vision`='1' WHERE `user_id` LIKE '$user_id'");
+                echo '<script> window.location.href = "lk.php"; </script>';
+              }
 
+              echo '
+
+                    <div class="submitting"></div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="label" for="name">О себе</label>
+                    ';
+              $date2 = mysqli_query($link, "SELECT `user_about` FROM `users` WHERE `user_hash` LIKE '$hashh'");
+              while ($date1 = $date2->fetch_assoc()) {
+                $date = $date1['user_about'];
+                echo '<textarea id="" cols="30" rows="3" class="form-control" <input name="about" type="about" class="form-control" placeholder="' . $date . '"></textarea>';
+              }
+              echo '
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <input name="submitt" class="btn btn-primary" type="submit" value="Подтвердить"
+                      style="margin-bottom: 0px;margin-top: 15px;">
+                    <div class="submitting"></div>
+                  </div>
+                </div>
               </div>
-              </form>
 
-              <div class="col-md-13 text-center heading-section heading-section-white ftco-animate">
-                <?php
-                $result = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-                while ($data = $result->fetch_assoc()) {
-                  $userid = $data['user_id'];
-                  if ($userid == 1) {
-                    echo '<a href="orderinfo.php" class="py-1 d-block subheading ">>Посмотреть все Проекты<</a>
+              ';
+              if (isset($_POST['submitt'])) {
+                if (empty($_POST['pass1']) == false) {
+                  $pass1 = $_POST['pass1'];
+                } else {
+                  $pass1 = 81237621378123;
+                }
+                if (empty($_POST['pass2']) == false) {
+                  $pass2 = $_POST['pass2'];
+                } else {
+                  $pass2 = 97655312376244;
+                }
+                if (empty($_POST['Email1']) == false) {
+                  $mail1 = $_POST['Email1'];
+                } else {
+                  $mail1 = 81237621378123;
+                }
+                if (empty($_POST['Email2']) == false) {
+                  $mail2 = $_POST['Email2'];
+                } else {
+                  $mail2 = 97655312376244;
+                }
+                if (empty($_POST['phone']) == false) {
+                  $phone = $_POST['phone'];
+                } else {
+                  $phone = 97655312376244;
+                }
+                if (empty($_POST['about']) == false) {
+                  $about = $_POST['about'];
+                } else {
+                  $about = 97655312376244;
+                }
+
+
+                if (empty($_POST['pass1']) == false and empty($_POST['pass2']) == false) {
+                  if ($pass1 == $pass2) {
+                    mysqli_query($link, "UPDATE `users` SET `user_password`='$pass2' WHERE  `user_hash` LIKE '$hashh'");
+                    echo "Пароль успешно изменен </br>";
+                  } else {
+                    echo "Пароли не совпадают </br>";
+                  }
+                }
+                if (filter_var($mail1, FILTER_VALIDATE_EMAIL) and filter_var($mail2, FILTER_VALIDATE_EMAIL)) {
+
+
+                  if (empty($_POST['Email1']) == false and empty($_POST['Email2']) == false) {
+                    if ($mail1 == $mail2) {
+                      mysqli_query($link, "UPDATE `users` SET `user_mail`='$mail2' WHERE  `user_hash` LIKE '$hashh'");
+                      echo "Email успешно изменен </br>";
+                    } else {
+                      echo "Email не совпадают </br>";
+                    }
+                  }
+                } else {
+                  echo "Email указан не правильно</br>";
+                }
+                if (empty($_POST['phone']) == false) {
+                  mysqli_query($link, "UPDATE `users` SET `user_phone`='$phone' WHERE  `user_hash` LIKE '$hashh'");
+                  echo "Номер телефона успешно изменен </br>";
+                }
+                if (empty($_POST['about']) == false) {
+                  mysqli_query($link, "UPDATE `users` SET `user_about`='$about' WHERE  `user_hash` LIKE '$hashh'");
+                  echo "Описание успешно изменено </br>";
+                }
+                echo '<script> window.location.href = "lk.php"; </script>';
+              }
+              if (isset($_POST['exit'])) {
+                echo '<script> window.location.href = "user.php"; </script>';
+                mysqli_query($link, "UPDATE `users` SET `user_hash`='0'WHERE `user_hash` LIKE '$hashh'");
+
+              }
+
+              echo '
+          </div>
+
+        </div>
+        </form>
+
+        <div class="col-md-13 text-center heading-section heading-section-white ftco-animate">
+          ';
+              $result = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
+              while ($data = $result->fetch_assoc()) {
+                $userid = $data['user_id'];
+                if ($userid == 1) {
+                  echo '<a href="orderinfo.php" class="py-1 d-block subheading ">>Посмотреть все Проекты<</a>
                     <span class="subheading">Последние 10 Проектов:</span>
                     <div class="text mt-3 text-center">';
 
-                    $result = mysqli_query($link, "SELECT MAX(`id`) FROM `products` WHERE 1");
+                  $result = mysqli_query($link, "SELECT MAX(`id`) FROM `products` WHERE 1");
+                  while ($row = $result->fetch_assoc()) {
+                    $maxid = $row['MAX(`id`)'];
+                  }
+                  $i = $maxid - 15;
+                  while ($maxid > $i) {
+
+                    $result = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE '$i'");
                     while ($row = $result->fetch_assoc()) {
-                      $maxid = $row['MAX(`id`)'];
+                      echo '<h6 class="heading"><a href=productinfo.php?id=' . $i . '>Проект ' . $row['product_name'] . ' </a></h6>';
+
                     }
-                    $i = $maxid - 15;
-                    while ($maxid > $i) {
+                    $i = $i + 1;
+                  }
+                } else {
 
-                      $result = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE '$i'");
-                      while ($row = $result->fetch_assoc()) {
-                        echo '<h6 class="heading"><a href=productinfo.php?id=' . $i . '>Проект ' . $row['product_name'] . ' </a></h6>';
+                  echo '<div class="text mt-3 text-center"> Ваши проекты:';
+                  $user_idd = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
+                  while ($dataa = $user_idd->fetch_assoc()) {
+                    $userr_id = $dataa['user_id'];
+                    $product_id = mysqli_query($link, "SELECT `id` FROM `products` WHERE `user_id` = '$userr_id'");
+                    while ($product_id1 = $product_id->fetch_assoc()) {
+                      $product_id2 = $product_id1['id'];
 
+                      $date2 = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE '$product_id2'");
+                      while ($date1 = $date2->fetch_assoc()) {
+                        $date = $date1['product_name'];
                       }
-                      $i = $i + 1;
-                    }
-                  } else {
-
-                    echo '<div class="text mt-3 text-center"> Ваши проекты:';
-                    $user_idd = mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$hashh'");
-                    while ($dataa = $user_idd->fetch_assoc()) {
-                      $userr_id = $dataa['user_id'];
-                      $product_id = mysqli_query($link, "SELECT `id` FROM `products` WHERE `user_id` = '$userr_id'");
-                      while ($product_id1 = $product_id->fetch_assoc()) {
-                        $product_id2 = $product_id1['id'];
-
-                        $date2 = mysqli_query($link, "SELECT `product_name` FROM `products` WHERE `id` LIKE '$product_id2'");
-                        while ($date1 = $date2->fetch_assoc()) {
-                          $date = $date1['product_name'];
-                        }
-                        echo '<h6 class="heading"><a href=productinfo.php?id=' . $product_id2 . '>Проект ' . $date . '</a></h6>';
-                      }
+                      echo '<h6 class="heading"><a href=productinfo.php?id=' . $product_id2 . '>Проект ' . $date . '</a></h6>';
                     }
                   }
                 }
-                ?>
+              }
+              echo '
+                </div>
               </div>
             </div>
+            </div>
+            </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <form method="POST">
+                  <input name="exit" class="col-md-12 btn btn-primary" type="submit" value="Выйти">
+                </form>
+              </div>
+            </div>
+
+
+            ';
+
+            }
+
+            ?>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-12">
-      <div class="form-group">
-        <form method="POST">
-          <input name="exit" class="col-md-12 btn btn-primary" type="submit" value="Выйти">
-        </form>
-      </div>
-    </div>
-
-
-
-    </div>
   </section>
 
 
@@ -498,7 +501,8 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
           <div class="row">
             <div class="col-md-4 mb-md-0 mb-4">
               <h2 class="footer-heading">Еще о нас</h2>
-              <p>Мы онлайн-платформа для поиска талантливых единомышленников в сфере информационных технологий. Быстрая, удобная и эффективная платформа объединения людей в IT секторе.</p>
+              <p>Мы онлайн-платформа для поиска талантливых единомышленников в сфере информационных технологий. Быстрая,
+                удобная и эффективная платформа объединения людей в IT секторе.</p>
               <ul class="ftco-footer-social p-0">
                 <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><span
                       class="ion-logo-twitter"></span></a></li>
@@ -523,7 +527,8 @@ if (mysqli_query($link, "SELECT `user_id` FROM `users` WHERE `user_hash` LIKE '$
             <div class="col-md-12">
               <p class="copyright">
                 Copyright &copy;
-                <script>document.write(new Date().getFullYear());</script> Все права зарезервированны | AdrenalineCodes</a>
+                <script>document.write(new Date().getFullYear());</script> Все права зарезервированны |
+                AdrenalineCodes</a>
               </p>
             </div>
           </div>
